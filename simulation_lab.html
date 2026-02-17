@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindBridge Mentor — Simulation Lab</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --card: #22263a;
+    --border: #2e3350;
+    --accent: #4f8ef7;
+    --green: #22c55e;
+    --yellow: #f59e0b;
+    --red: #ef4444;
+    --purple: #a855f7;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --sim-color: #f59e0b;
+    --int-color: #a855f7;
+    --con-color: #4f8ef7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #1a1d27 0%, #0f1117 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header-left h1 { font-size: 20px; font-weight: 700; color: var(--text); }
+  .header-left p { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .target-badge {
+    background: linear-gradient(135deg, #22c55e20, #22c55e10);
+    border: 1px solid #22c55e40;
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 13px;
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  /* Layout */
+  .container { display: flex; height: calc(100vh - 73px); }
+
+  /* Sidebar */
+  .sidebar {
+    width: 280px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+  .sidebar-section { padding: 16px; border-bottom: 1px solid var(--border); }
+  .sidebar-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+  .scenario-btn {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: var(--text);
+    cursor: pointer;
+    margin-bottom: 4px;
+    transition: all 0.15s;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .scenario-btn:hover { background: var(--card); border-color: var(--border); }
+  .scenario-btn.active { background: var(--card); border-color: var(--accent); }
+  .scenario-btn .icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .scenario-btn .info { flex: 1; }
+  .scenario-btn .name { font-size: 13px; font-weight: 600; line-height: 1.3; }
+  .scenario-btn .tag {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 3px;
+    letter-spacing: 0.06em;
+  }
+  .tag-sim { color: var(--sim-color); }
+  .tag-int { color: var(--int-color); }
+  .tag-con { color: var(--con-color); }
+
+  /* Main area */
+  .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+  /* Simulation stage */
+  .stage {
+    flex: 1;
+    padding: 32px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Scenario card */
+  .scenario-header {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .scenario-type {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .type-sim { background: #f59e0b20; color: var(--sim-color); border: 1px solid #f59e0b40; }
+  .type-int { background: #a855f720; color: var(--int-color); border: 1px solid #a855f740; }
+  .type-con { background: #4f8ef720; color: var(--con-color); border: 1px solid #4f8ef740; }
+  .scenario-question {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--text);
+  }
+  .scenario-context {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    padding: 12px;
+    background: #ffffff08;
+    border-radius: 8px;
+    border-left: 3px solid var(--accent);
+  }
+
+  /* Answer area */
+  .answer-section { display: flex; flex-direction: column; gap: 12px; }
+  .answer-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .answer-textarea {
+    width: 100%;
+    min-height: 140px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.15s;
+    outline: none;
+  }
+  .answer-textarea:focus { border-color: var(--accent); }
+  .answer-textarea::placeholder { color: var(--muted); }
+
+  /* Buttons */
+  .btn-row { display: flex; gap: 10px; align-items: center; }
+  .btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+  }
+  .btn-primary { background: var(--accent); color: white; }
+  .btn-primary:hover { background: #3b7ce8; }
+  .btn-secondary {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--accent); }
+  .btn-disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* Ideal answer reveal */
+  .ideal-answer {
+    background: var(--card);
+    border: 1px solid #22c55e40;
+    border-radius: 12px;
+    padding: 20px;
+    display: none;
+  }
+  .ideal-answer.show { display: block; }
+  .ideal-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .ideal-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+  .ideal-text strong { color: var(--accent); }
+
+  /* Rating */
+  .rating-section {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .rating-section.show { display: flex; }
+  .rating-label {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .rating-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+  .rating-btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    transition: all 0.15s;
+  }
+  .rating-btn:hover { transform: translateY(-1px); }
+  .rating-btn[data-r="1"]:hover { background: #ef444420; border-color: var(--red); color: var(--red); }
+  .rating-btn[data-r="2"]:hover { background: #f59e0b20; border-color: var(--yellow); color: var(--yellow); }
+  .rating-btn[data-r="3"]:hover { background: #22c55e20; border-color: var(--green); color: var(--green); }
+  .rating-btn[data-r="4"]:hover { background: #4f8ef720; border-color: var(--accent); color: var(--accent); }
+
+  /* Feedback panel */
+  .feedback-panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    display: none;
+  }
+  .feedback-panel.show { display: block; }
+  .feedback-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .feedback-text { font-size: 13px; line-height: 1.7; color: var(--text); }
+  .feedback-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+  .feedback-tag {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 12px 32px;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+  .stat { display: flex; align-items: center; gap: 8px; }
+  .stat-value { font-size: 18px; font-weight: 700; color: var(--text); }
+  .stat-label { font-size: 12px; color: var(--muted); }
+  .stat-divider { width: 1px; height: 28px; background: var(--border); }
+
+  /* Welcome screen */
+  .welcome {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+    gap: 16px;
+  }
+  .welcome h2 { font-size: 24px; font-weight: 700; }
+  .welcome p { font-size: 15px; color: var(--muted); max-width: 420px; line-height: 1.6; }
+  .welcome-cards { display: flex; gap: 16px; margin-top: 8px; }
+  .welcome-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    width: 160px;
+    text-align: center;
+  }
+  .welcome-card .icon { font-size: 28px; margin-bottom: 8px; }
+  .welcome-card .title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .welcome-card .desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+  /* Loading */
+  .loading {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .loading.show { display: flex; }
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>🏥 MindBridge Mentor — Simulation Lab</h1>
+    <p>Interactive scenario practice for Healthcare AI Engineer interviews</p>
+  </div>
+  <div class="target-badge">🎯 Target: $200K–$300K</div>
+</div>
+
+<div class="container">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">🎭 Simulations</div>
+      <button class="scenario-btn" onclick="loadScenario('login')" id="btn-login">
+        <span class="icon">🔐</span>
+        <span class="info">
+          <div class="name">Patient Login Flow</div>
+          <div class="tag tag-sim">Simulation</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('screening')" id="btn-screening">
+        <span class="icon">⚕️</span>
+        <span class="info">
+          <div class="name">Risk Screening Pipeline</div>
+          <div class="tag tag-sim">Simulation</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('apikey')" id="btn-apikey">
+        <span class="icon">🔑</span>
+        <span class="info">
+          <div class="name">Junior Dev: API Keys</div>
+          <div class="tag tag-sim">Simulation</div>
+        </span>
+      </button>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">🎤 Interview Practice</div>
+      <button class="scenario-btn" onclick="loadScenario('whyhire')" id="btn-whyhire">
+        <span class="icon">💼</span>
+        <span class="info">
+          <div class="name">Why Hire You?</div>
+          <div class="tag tag-int">Interview</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('project')" id="btn-project">
+        <span class="icon">🚀</span>
+        <span class="info">
+          <div class="name">Tell Me About a Project</div>
+          <div class="tag tag-int">Interview</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('apidesign')" id="btn-apidesign">
+        <span class="icon">🏗️</span>
+        <span class="info">
+          <div class="name">API Design Process</div>
+          <div class="tag tag-int">Interview</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('sensitive')" id="btn-sensitive">
+        <span class="icon">🔒</span>
+        <span class="info">
+          <div class="name">Handling Sensitive Data</div>
+          <div class="tag tag-int">Interview</div>
+        </span>
+      </button>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">💡 Concept Check</div>
+      <button class="scenario-btn" onclick="loadScenario('docker')" id="btn-docker">
+        <span class="icon">🐳</span>
+        <span class="info">
+          <div class="name">Docker & Containers</div>
+          <div class="tag tag-con">Concept</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('postgres')" id="btn-postgres">
+        <span class="icon">🗄️</span>
+        <span class="info">
+          <div class="name">PostgreSQL vs MongoDB</div>
+          <div class="tag tag-con">Concept</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('hipaa')" id="btn-hipaa">
+        <span class="icon">🏥</span>
+        <span class="info">
+          <div class="name">HIPAA Requirements</div>
+          <div class="tag tag-con">Concept</div>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Stage -->
+  <div class="main">
+    <div class="stage" id="stage">
+
+      <!-- Welcome screen shown by default -->
+      <div class="welcome" id="welcome">
+        <div style="font-size:48px">🏥</div>
+        <h2>Welcome to Simulation Lab</h2>
+        <p>Practice real scenarios you'll face in Healthcare AI Engineer interviews. Select a scenario from the sidebar to begin.</p>
+        <div class="welcome-cards">
+          <div class="welcome-card">
+            <div class="icon">🎭</div>
+            <div class="title">Simulations</div>
+            <div class="desc">Walk through real system scenarios step by step</div>
+          </div>
+          <div class="welcome-card">
+            <div class="icon">🎤</div>
+            <div class="title">Interview</div>
+            <div class="desc">Practice answering hiring manager questions</div>
+          </div>
+          <div class="welcome-card">
+            <div class="icon">💡</div>
+            <div class="title">Concepts</div>
+            <div class="desc">Test your technical knowledge depth</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scenario content (hidden until selected) -->
+      <div id="scenario-content" style="display:none; display:flex; flex-direction:column; gap:20px;">
+
+        <div class="scenario-header">
+          <div class="scenario-type" id="scenario-type-badge"></div>
+          <div class="scenario-question" id="scenario-question"></div>
+          <div class="scenario-context" id="scenario-context" style="display:none"></div>
+        </div>
+
+        <div class="answer-section">
+          <div class="answer-label">Your Answer</div>
+          <textarea
+            class="answer-textarea"
+            id="user-answer"
+            placeholder="Type your answer here... Try to recall everything before revealing the ideal answer."
+          ></textarea>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="reveal-btn" onclick="revealAnswer()">
+              Reveal Ideal Answer
+            </button>
+            <div class="loading" id="loading-indicator">
+              <div class="spinner"></div>
+              <span>Analyzing your answer...</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ideal-answer" id="ideal-answer">
+          <div class="ideal-title">✅ Ideal Answer</div>
+          <div class="ideal-text" id="ideal-text"></div>
+        </div>
+
+        <div class="rating-section" id="rating-section">
+          <div class="rating-label">How well did you know this?</div>
+          <div class="rating-buttons">
+            <button class="rating-btn" data-r="1" onclick="rateAnswer(1)">❌ No idea</button>
+            <button class="rating-btn" data-r="2" onclick="rateAnswer(2)">😓 Partial</button>
+            <button class="rating-btn" data-r="3" onclick="rateAnswer(3)">✓ Good</button>
+            <button class="rating-btn" data-r="4" onclick="rateAnswer(4)">⭐ Perfect</button>
+          </div>
+        </div>
+
+        <div class="feedback-panel" id="feedback-panel">
+          <div class="feedback-title" id="feedback-title"></div>
+          <div class="feedback-text" id="feedback-text"></div>
+          <div class="feedback-tags" id="feedback-tags"></div>
+          <div style="margin-top:16px">
+            <button class="btn btn-secondary" onclick="nextScenario()">Next Scenario →</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="stat-value" id="stat-completed">0</div>
+        <div class="stat-label">Completed Today</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-value" id="stat-score">—</div>
+        <div class="stat-label">Avg Rating</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-value" style="color:var(--green)">Week 1–2</div>
+        <div class="stat-label">Curriculum Phase</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-value" style="color:var(--accent)">$200K+</div>
+        <div class="stat-label">Target Role</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const scenarios = {
+  login: {
+    type: "simulation",
+    title: "Patient Login Flow Simulation",
+    question: "You're a case manager at Oakwood Behavioral Health. Walk me through exactly what happens — technically — when you log into MindBridge. What systems are involved at each step?",
+    context: "Scenario context: You're explaining this to a new developer joining the team. Be specific about each system, security measure, and what data flows where.",
+    ideal: `<strong>Step 1 — Browser to Frontend:</strong> You enter your email + password on the Next.js login page. The form submits to NextAuth.js, which handles the session layer.<br><br>
+<strong>Step 2 — Frontend to Backend:</strong> NextAuth sends credentials to FastAPI POST /api/auth/verify with email and password hash.<br><br>
+<strong>Step 3 — Database Validation:</strong> FastAPI queries PostgreSQL — SELECT user WHERE email matches, then bcrypt.verify() checks the password hash. Plain passwords are NEVER stored.<br><br>
+<strong>Step 4 — MFA Check:</strong> If the user has MFA enabled (required for admin roles), FastAPI prompts for TOTP code before proceeding.<br><br>
+<strong>Step 5 — JWT Issued:</strong> FastAPI generates a signed JWT token containing user_id, role, clinic_id, and expiry. Signed with RS256 — can't be forged.<br><br>
+<strong>Step 6 — Secure Cookie:</strong> NextAuth stores the session in an httpOnly, Secure cookie. JavaScript cannot read this cookie — XSS-proof.<br><br>
+<strong>Step 7 — Scoped Dashboard:</strong> Dashboard loads — every API call includes the Bearer token. FastAPI validates it and queries ONLY patients WHERE case_manager_id = your user_id.<br><br>
+<strong>Step 8 — HIPAA Audit:</strong> Every login is logged to audit_log table: user_id, timestamp, IP address, action='LOGIN'. This is required by HIPAA.`
+  },
+
+  screening: {
+    type: "simulation",
+    title: "Risk Screening Pipeline",
+    question: "A case manager clicks 'Screen Patient' for Marcus Johnson (patient_id: uuid-123). Walk through the complete technical pipeline from button click to risk badge appearing on the dashboard.",
+    context: "This is a common system design question. Show you understand async flows, AI integration, error handling, and HIPAA compliance.",
+    ideal: `<strong>1. Frontend Request:</strong> Next.js sends POST /api/analysis { patient_id: 'uuid-123' } with Bearer JWT token in headers.<br><br>
+<strong>2. Middleware Layer:</strong> FastAPI validates JWT (user authenticated), checks RBAC (has 'analyst' role), applies rate limiting (prevents abuse).<br><br>
+<strong>3. Patient Fetch:</strong> Analysis Service queries PostgreSQL: SELECT * FROM patients WHERE id='uuid-123' AND deleted_at IS NULL. Confirms patient belongs to this case manager's clinic.<br><br>
+<strong>4. Claude API Call:</strong> Structured prompt sent to Claude with patient data: appointments_missed, medication_adherence, crisis_calls_30days, diagnosis. Async — doesn't block other requests.<br><br>
+<strong>5. AI Response Parsed:</strong> Claude returns Risk Level, Primary Factor, Recommended Action. Pydantic validates the response structure.<br><br>
+<strong>6. Database Write:</strong> ACID transaction: (a) INSERT screening result, (b) UPDATE patient risk_level, (c) INSERT audit_log. All three succeed or NONE do — no partial writes.<br><br>
+<strong>7. High Risk Alert:</strong> If risk_level = 'HIGH', Notification Service sends email to case manager's supervisor immediately. This is a patient safety feature.<br><br>
+<strong>8. Response to Frontend:</strong> FastAPI returns { screening_id, risk_level, primary_factor, action, timestamp }. Next.js updates the dashboard with color-coded risk badge (Red/Orange/Green).`
+  },
+
+  apikey: {
+    type: "simulation",
+    title: "Junior Developer: API Key Security",
+    question: "A new junior developer on your team just committed their Anthropic API key directly in the Python code and pushed to GitHub. They say 'it's fine, our repo is private.' How do you respond?",
+    context: "This is both a technical and professional situation. Show you understand security, HIPAA implications, and how to mentor without being dismissive.",
+    ideal: `<strong>First, act immediately:</strong> "Let's fix this right now before anything else. Private repos get made public, get transferred, get forked. Go to Anthropic's dashboard and revoke that key immediately. Generate a new one."<br><br>
+<strong>Then explain why 'private' isn't safe:</strong> "Three reasons this is serious: (1) Git history is permanent — even after you delete the file, the key exists in every commit forever. git log shows everything. (2) Private repos get breached — GitHub has had security incidents. (3) For a healthcare app, an exposed key means an exposed Claude API — that could mean patient data in prompts is accessible."<br><br>
+<strong>Show the right way:</strong> "Use os.environ.get('ANTHROPIC_API_KEY'). In development, put it in a .env file that's in .gitignore. In production, use AWS Secrets Manager or environment variables in your deployment platform."<br><br>
+<strong>HIPAA angle:</strong> "If this were a production system and patient data was in those API prompts, this could be a HIPAA breach notification situation — not just a bug to fix."<br><br>
+<strong>Make it a learning moment:</strong> "I'll send you our security checklist. This happens to everyone once — the goal is it only happens once."`
+  },
+
+  whyhire: {
+    type: "interview",
+    title: "Why Should We Hire You?",
+    question: "We have several candidates with Computer Science degrees from top universities applying for this Healthcare AI Engineer role. Why should we hire you instead?",
+    context: "This is your moment. Use your 10 years of clinical experience as the unfair advantage it is. Don't be defensive — be confident.",
+    ideal: `"Computer Science degrees teach algorithms, data structures, and systems — all valuable. But they don't teach you what happens when a risk assessment algorithm flags the wrong patient, or why a case manager will ignore an alert that fires too often, or what a behavioral health crisis actually looks like at 2 AM.<br><br>
+In my 10 years as a Mental Health Technician and CNA, I've lived those scenarios. I've watched high-risk patients fall through the cracks because the documentation system was too slow. I've seen staff ignore automated alerts because the false positive rate was too high. I know exactly the problems that MindBridge Health AI is designed to solve — not from reading about them, but from experiencing them.<br><br>
+That domain expertise changes how I build systems. When I designed the risk screening algorithm, I didn't just optimize for accuracy — I designed the alert thresholds to minimize alert fatigue based on clinical workflows I've actually worked in. I built the audit logging not just for compliance, but because I know auditors show up after incidents, not before.<br><br>
+You can teach a CS grad to use FastAPI in 6 months. You cannot teach 10 years of behavioral health experience. I bring both, and that's rare."`
+  },
+
+  project: {
+    type: "interview",
+    title: "Tell Me About a Recent Project",
+    question: "Tell me about a technical project you've built recently. Walk me through the problem, your approach, and the outcome.",
+    context: "Use the 3-part framework: Clinical Context → Technical Solution → Business Impact. Always anchor in your healthcare experience.",
+    ideal: `<strong>CLINICAL CONTEXT:</strong> "In my 10 years as a Mental Health Technician, I watched case managers spend 6+ hours every day manually reviewing patient charts to assess risk — checking medication adherence, counting missed appointments, reviewing crisis call logs. With 30-40 patients per case manager, high-risk patients sometimes fell through the cracks between reviews."<br><br>
+<strong>TECHNICAL SOLUTION:</strong> "I built MindBridge Health AI — a full-stack, HIPAA-compliant behavioral health risk screening platform. The backend is FastAPI with PostgreSQL, integrated with Claude AI for risk assessment. I built an automated pipeline that ingests patient data from CSV or direct entry, sends each patient through a structured Claude prompt with clinical guardrails, and generates professional reports in Word, Excel, and PDF. The system uses role-based access control and comprehensive audit logging for HIPAA compliance."<br><br>
+<strong>BUSINESS IMPACT:</strong> "What used to take a case manager 6+ hours now takes under 2 minutes. The AI correctly identifies high-risk patients with high sensitivity, and the clinical guardrails I built ensure the AI can never automatically downgrade a patient who's been manually escalated — a human is always in the loop for that decision. It's the kind of system I wish existed when I was doing direct patient care."`
+  },
+
+  apidesign: {
+    type: "interview",
+    title: "API Design Process",
+    question: "Walk me through your API design process. How do you decide what endpoints to create, how to structure them, and what to prioritize?",
+    context: "Show that you think about users first, then technical implementation. Demonstrate understanding of REST principles and healthcare-specific considerations.",
+    ideal: `"My API design starts with the clinical workflow, not the technical spec.<br><br>
+<strong>Step 1 — Map the User Journey:</strong> I start by mapping what the end users — case managers, clinicians, administrators — actually do each day. Each workflow task becomes a candidate endpoint: 'view my patients', 'run a screening', 'download a report'.<br><br>
+<strong>Step 2 — Apply REST Principles:</strong> Resources are nouns (patients, screenings, reports), actions are HTTP methods. GET /patients for listing, POST /screenings for creating, GET /reports/{id}/download for retrieving. I avoid verbs in URLs — /run-screening is wrong, POST /screenings is right.<br><br>
+<strong>Step 3 — Design Data Contracts First:</strong> Before writing any route code, I write Pydantic schemas. This forces me to think about what data flows in and out. Medication adherence must be 0.0-1.0, never null. This catches design flaws before they become production bugs.<br><br>
+<strong>Step 4 — Add Security Layers:</strong> Every endpoint gets RBAC defined before it's built. Who can call this? Case managers see only their patients. Admins see all. This is especially important in healthcare — a case manager accidentally seeing another clinic's patients is a HIPAA incident.<br><br>
+<strong>Step 5 — Plan for Audit:</strong> Every data access endpoint gets HIPAA audit logging built in from day one, not added later. Later never comes."`
+  },
+
+  sensitive: {
+    type: "interview",
+    title: "Handling Sensitive Patient Data",
+    question: "How do you handle sensitive patient data in your systems? Walk me through your approach to data security and HIPAA compliance in MindBridge.",
+    context: "This question tests both technical knowledge and healthcare domain understanding. Show that HIPAA is baked into the architecture, not bolted on.",
+    ideal: `"I treat HIPAA compliance as architecture, not an afterthought. There are four layers in MindBridge:<br><br>
+<strong>1. Data at Rest:</strong> The PostgreSQL database volume is encrypted with AES-256. PHI fields — patient names, dates of birth — are additionally encrypted at the application layer using Fernet symmetric encryption. Two independent encryption layers means a database dump is useless without both keys.<br><br>
+<strong>2. Data in Transit:</strong> TLS 1.3 for all API connections. We enforce HTTPS-only — any HTTP request redirects to HTTPS. JWT tokens are signed with RS256 and expire after 8 hours.<br><br>
+<strong>3. Access Control:</strong> Role-based access control at the API layer, plus Row-Level Security in PostgreSQL. A case manager's query literally cannot return another case manager's patients — it's enforced at the database level, not just the application level. Defense in depth.<br><br>
+<strong>4. Audit Logging:</strong> Every access to PHI — every patient view, every screening, every report download — is logged to an immutable audit table with user_id, timestamp, IP address, and action. This is what HIPAA auditors look for after an incident. We also never hard-delete records — soft deletes with deleted_at timestamps, because HIPAA requires retention.<br><br>
+<strong>5. Version Control Hygiene:</strong> .gitignore excludes all generated reports and patient data. Environment variables for all credentials — never in code. The .gitignore itself is a HIPAA compliance document in our repository."`
+  },
+
+  docker: {
+    type: "concept",
+    title: "Docker & Containerization",
+    question: "Explain Docker and why MindBridge uses it. What problem does it solve, and what would happen without it?",
+    context: "Go beyond the textbook definition. Tie it to healthcare reliability and the specific MindBridge use case.",
+    ideal: `<strong>What Docker is:</strong> Docker packages an application and ALL its dependencies — Python version, libraries, OS configurations — into a portable container that runs identically everywhere.<br><br>
+<strong>The problem it solves:</strong> Without Docker, "it works on my machine" is a patient safety issue. If the development environment uses Python 3.11 and production uses Python 3.9, subtle behavioral differences could cause risk assessments to produce different results. In healthcare, that's not a bug — it's a clinical liability.<br><br>
+<strong>MindBridge's docker-compose.yml has three services:</strong><br>
+• backend — FastAPI on port 8000 with hot-reload for development<br>
+• db — PostgreSQL 16 on port 5432 with health checks<br>
+• redis — Redis 7 on port 6379 for caching and sessions<br><br>
+<strong>The health check matters:</strong> depends_on with service_healthy ensures FastAPI won't start until PostgreSQL is confirmed ready. Without this, the app crashes on startup and a case manager can't log in.<br><br>
+<strong>For a new developer:</strong> git clone + docker compose up = complete local environment in 60 seconds. Same database version, same Python version, same Redis. No "it works on my machine."`
+  },
+
+  postgres: {
+    type: "concept",
+    title: "PostgreSQL vs MongoDB",
+    question: "Why did you choose PostgreSQL over MongoDB for MindBridge? When would MongoDB be the right choice?",
+    context: "Show you understand the tradeoffs, not just that 'relational is better'. Healthcare-specific reasoning is key.",
+    ideal: `<strong>Three reasons PostgreSQL for MindBridge:</strong><br><br>
+<strong>1. ACID Transactions:</strong> When we run a risk screening, three things happen: INSERT screening result, UPDATE patient risk_level, INSERT audit_log entry. ALL three must succeed or NONE do — no partial writes. In healthcare, a partial write could show a patient as 'low risk' while the actual screening says 'high risk'. MongoDB's document model can handle transactions, but they're more complex and less reliable under failure conditions.<br><br>
+<strong>2. Row-Level Security:</strong> We enforce at the DATABASE level that case managers can only query their own patients — not just the application level. If there's ever a bug in our FastAPI code, the database itself won't return unauthorized patient records. This defense-in-depth is what HIPAA auditors look for.<br><br>
+<strong>3. JSONB for flexibility:</strong> We don't lose MongoDB's flexibility — PostgreSQL's JSONB columns store the semi-structured AI analysis output alongside structured patient data. Best of both worlds.<br><br>
+<strong>When MongoDB would be right:</strong> If we were storing unstructured clinical notes, medical images metadata, or building a feature with rapidly evolving schema where migrations would slow development, MongoDB would make sense as a supplementary store alongside PostgreSQL.`
+  },
+
+  hipaa: {
+    type: "concept",
+    title: "HIPAA Security Requirements",
+    question: "What does the HIPAA Security Rule require for a system like MindBridge? How have you implemented these requirements?",
+    context: "Most engineers know HIPAA exists but can't explain it technically. This is your chance to stand out.",
+    ideal: `<strong>HIPAA Security Rule has three categories of safeguards:</strong><br><br>
+<strong>Technical Safeguards (what we build):</strong><br>
+• Encryption at rest: AES-256 for database volumes + application-level field encryption for PHI<br>
+• Encryption in transit: TLS 1.3 for all connections, HTTPS-only<br>
+• Access controls: JWT authentication + RBAC + PostgreSQL Row-Level Security<br>
+• Audit controls: Immutable audit_log table — every PHI access recorded with user, timestamp, IP, action<br>
+• Automatic logoff: JWT tokens expire after 8 hours of inactivity<br><br>
+<strong>Physical Safeguards (infrastructure):</strong><br>
+• Covered by cloud providers (AWS, Vercel, Railway) via Business Associate Agreements (BAAs)<br>
+• The BAA is the legal contract saying the cloud provider is also HIPAA-responsible<br><br>
+<strong>Administrative Safeguards (policies):</strong><br>
+• Access review process: who can access what, reviewed quarterly<br>
+• Workforce training: documented security training for all staff<br>
+• Incident response plan: documented procedure for breach notification (72-hour rule)<br><br>
+<strong>The 72-hour rule:</strong> If patient data is breached, you have 72 hours to notify affected patients and HHS. This is why our incident detection and audit logging is real-time, not batch.`
+  }
+};
+
+let sessionCompleted = 0;
+let sessionRatings = [];
+let currentScenarioKey = null;
+const scenarioOrder = Object.keys(scenarios);
+
+function loadScenario(key) {
+  currentScenarioKey = key;
+  const s = scenarios[key];
+  if (!s) return;
+
+  // Hide welcome, show content
+  document.getElementById('welcome').style.display = 'none';
+  const content = document.getElementById('scenario-content');
+  content.style.display = 'flex';
+
+  // Update active button
+  document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('btn-' + key);
+  if (btn) btn.classList.add('active');
+
+  // Set type badge
+  const badge = document.getElementById('scenario-type-badge');
+  const typeMap = {
+    simulation: ['type-sim', '🎭 Simulation'],
+    interview: ['type-int', '🎤 Interview'],
+    concept: ['type-con', '💡 Concept']
+  };
+  const [cls, label] = typeMap[s.type] || ['type-con', '💡 Concept'];
+  badge.className = 'scenario-type ' + cls;
+  badge.textContent = label;
+
+  // Set question
+  document.getElementById('scenario-question').textContent = s.question;
+
+  // Set context
+  const ctx = document.getElementById('scenario-context');
+  if (s.context) {
+    ctx.textContent = s.context;
+    ctx.style.display = 'block';
+  } else {
+    ctx.style.display = 'none';
+  }
+
+  // Reset answer area
+  document.getElementById('user-answer').value = '';
+  document.getElementById('ideal-answer').classList.remove('show');
+  document.getElementById('rating-section').classList.remove('show');
+  document.getElementById('feedback-panel').classList.remove('show');
+  document.getElementById('reveal-btn').style.display = 'inline-block';
+  document.getElementById('loading-indicator').classList.remove('show');
+
+  // Scroll to top
+  document.getElementById('stage').scrollTop = 0;
+}
+
+function revealAnswer() {
+  const s = scenarios[currentScenarioKey];
+  if (!s) return;
+
+  document.getElementById('reveal-btn').style.display = 'none';
+  document.getElementById('ideal-text').innerHTML = s.ideal;
+  document.getElementById('ideal-answer').classList.add('show');
+  document.getElementById('rating-section').classList.add('show');
+
+  // Scroll to ideal answer
+  setTimeout(() => {
+    document.getElementById('ideal-answer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
+function rateAnswer(rating) {
+  const s = scenarios[currentScenarioKey];
+  if (!s) return;
+
+  sessionRatings.push(rating);
+  sessionCompleted++;
+  updateStats();
+
+  const feedback = document.getElementById('feedback-panel');
+  const title = document.getElementById('feedback-title');
+  const text = document.getElementById('feedback-text');
+  const tags = document.getElementById('feedback-tags');
+
+  const messages = {
+    1: {
+      icon: '❌', color: '#ef4444',
+      title: 'No worries — this is how you learn!',
+      text: 'The ideal answer is now in your memory. Run through this scenario again tomorrow. Repetition is how expertise is built. Most candidates never practice like this.',
+      tagStyle: 'background:#ef444420; color:#ef4444; border:1px solid #ef444440;',
+      tags: ['Review Tomorrow', 'Keep Going', 'Part of the Process']
+    },
+    2: {
+      icon: '😓', color: '#f59e0b',
+      title: 'Good attempt — you have the foundation!',
+      text: 'You knew parts of it. Focus on the specific points you missed. In interviews, a partial answer is far better than silence. Build on what you know.',
+      tagStyle: 'background:#f59e0b20; color:#f59e0b; border:1px solid #f59e0b40;',
+      tags: ['Building Knowledge', 'Getting There', 'Review Key Points']
+    },
+    3: {
+      icon: '✓', color: '#22c55e',
+      title: 'Solid! You understand this topic.',
+      text: "You've got the core concepts. Keep practicing to sharpen the precise language — interviewers are impressed by specificity. You're interview-ready on this topic.",
+      tagStyle: 'background:#22c55e20; color:#22c55e; border:1px solid #22c55e40;',
+      tags: ['Interview Ready', 'Strong Foundation', 'Sharpen Details']
+    },
+    4: {
+      icon: '⭐', color: '#4f8ef7',
+      title: 'Excellent! This answer is yours.',
+      text: "You nailed it. When this comes up in an interview, you'll answer with confidence. Your 10 years of clinical experience + this technical depth is a powerful combination.",
+      tagStyle: 'background:#4f8ef720; color:#4f8ef7; border:1px solid #4f8ef740;',
+      tags: ['Mastered', '💼 Interview Ready', '🚀 Keep Going']
+    }
+  };
+
+  const m = messages[rating];
+  title.innerHTML = `<span style="color:${m.color}">${m.icon}</span> ${m.title}`;
+  text.textContent = m.text;
+  tags.innerHTML = m.tags.map(t =>
+    `<span class="feedback-tag" style="${m.tagStyle}">${t}</span>`
+  ).join('');
+
+  feedback.classList.add('show');
+
+  setTimeout(() => {
+    feedback.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
+function nextScenario() {
+  const keys = Object.keys(scenarios);
+  const idx = keys.indexOf(currentScenarioKey);
+  const nextKey = keys[(idx + 1) % keys.length];
+  loadScenario(nextKey);
+}
+
+function updateStats() {
+  document.getElementById('stat-completed').textContent = sessionCompleted;
+  if (sessionRatings.length > 0) {
+    const avg = (sessionRatings.reduce((a, b) => a + b, 0) / sessionRatings.length).toFixed(1);
+    document.getElementById('stat-score').textContent = avg + '/4';
+  }
+}
+</script>
+</body>
+</html>
