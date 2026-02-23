@@ -67,6 +67,14 @@ export default function DashboardPage() {
 
       <main className="max-w-7xl mx-auto px-6 py-8">
 
+        {/* Demo banner */}
+<div className="mb-6 bg-amber-50 border border-amber-200 rounded-xl px-5 py-3 flex items-center gap-3">
+  <span className="text-amber-500 text-lg">⚠️</span>
+  <p className="text-sm text-amber-700">
+    <span className="font-semibold">Demo Environment</span> — All patient data is completely fictional and for portfolio demonstration purposes only. No real PHI is stored or displayed. HIPAA compliance architecture is production-ready.
+  </p>
+</div>
+
         {/* Page title */}
         <div className="mb-6">
           <h2 className="text-2xl font-bold text-slate-900">Patient Dashboard</h2>

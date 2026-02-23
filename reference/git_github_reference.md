@@ -736,3 +736,6 @@ git commit -m "Week 3 Day 11: Next.js frontend complete
 - HIPAA compliance notices throughout
 - Claude AI summary integration (UI layer)"
 git push
+
+Note that GitHub message — your repo moved to fidelis-emmanuel/MindBridge-Health-AI. Update your remote so future pushes go to the right place:
+bashgit remote set-url origin https://github.com/fidelis-emmanuel/MindBridge-Health-AI.git
