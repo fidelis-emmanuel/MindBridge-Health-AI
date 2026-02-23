@@ -1,0 +1,50 @@
+============================================================
+DAILY PATIENT RISK SCREENING REPORT
+Generated: 2026-02-10 12:19:29
+============================================================
+
+HIGH RISK - PATIENT #1
+Data: Patient ID: 001, Missed 3 appts, Med adherence 40%, 4 crisis calls
+Risk Level: High
+Primary Factor: Multiple missed appointments combined with poor medication adherence
+Action: Immediate clinical intervention and care coordination outreach required
+------------------------------------------------------------
+
+LOW RISK - PATIENT #2
+Data: Patient ID: 002, All appts attended, Med adherence 95%, 0 crisis calls
+Risk Level: Low
+Primary Factor: Excellent engagement and adherence
+Action: Continue current treatment plan with routine monitoring
+------------------------------------------------------------
+
+MEDIUM RISK - PATIENT #3
+Data: Patient ID: 003, Missed 1 appt, Med adherence 75%, 1 crisis call
+Risk Level: Medium
+Primary Factor: Recent crisis call indicating acute distress
+Action: Schedule immediate follow-up appointment within 48-72 hours and assess crisis intervention needs
+------------------------------------------------------------
+
+HIGH RISK - PATIENT #4
+Data: Patient ID: 004, Missed 4 appts, Med adherence 25%, 6 crisis calls
+Risk Level: High
+Primary Factor: Multiple missed appointments with extremely poor medication adherence
+Action: Immediate clinical outreach and care coordination intervention
+------------------------------------------------------------
+
+HIGH RISK - PATIENT #5
+Data: Patient ID: 005, Missed 2 appts, Med adherence 60%, 2 crisis calls
+Risk Level: High
+Primary Factor: Multiple concerning indicators - missed appointments combined with poor medication adherence and crisis calls
+Action: Immediate outreach for urgent appointment scheduling, medication adherence review, and crisis intervention assessment
+------------------------------------------------------------
+
+============================================================
+SUMMARY
+============================================================
+Total Patients Analyzed: 5
+HIGH RISK: 3
+MEDIUM RISK: 1
+LOW RISK: 1
+
+High Risk Percentage: 60.0%
+============================================================

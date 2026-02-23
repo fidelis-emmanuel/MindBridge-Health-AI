@@ -365,7 +365,7 @@
   <!-- Sidebar -->
   <div class="sidebar">
     <div class="sidebar-section">
-      <div class="sidebar-title">🎭 Simulations (6)</div>
+      <div class="sidebar-title">🎭 Simulations (13)</div>
       <button class="scenario-btn" onclick="loadScenario('login')" id="btn-login">
         <span class="icon">🔐</span>
         <span class="info">
@@ -408,10 +408,59 @@
           <div class="tag tag-sim">Simulation</div>
         </span>
       </button>
+      <button class="scenario-btn" onclick="loadScenario('ratelimit')" id="btn-ratelimit">
+        <span class="icon">⏱️</span>
+        <span class="info">
+          <div class="name">Rate Limiting</div>
+          <div class="tag tag-sim">Simulation</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('circuitbreaker')" id="btn-circuitbreaker">
+        <span class="icon">⚡</span>
+        <span class="info">
+          <div class="name">Circuit Breaker Pattern</div>
+          <div class="tag tag-sim">Simulation</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('caching')" id="btn-caching">
+        <span class="icon">💾</span>
+        <span class="info">
+          <div class="name">Redis Caching</div>
+          <div class="tag tag-sim">Simulation</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('deployment')" id="btn-deployment">
+        <span class="icon">🚀</span>
+        <span class="info">
+          <div class="name">Zero-Downtime Deploy</div>
+          <div class="tag tag-sim">Simulation</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('monitoring')" id="btn-monitoring">
+        <span class="icon">📊</span>
+        <span class="info">
+          <div class="name">Production Monitoring</div>
+          <div class="tag tag-sim">Simulation</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('incident')" id="btn-incident">
+        <span class="icon">🚨</span>
+        <span class="info">
+          <div class="name">Incident Response</div>
+          <div class="tag tag-sim">Simulation</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('multitenancy')" id="btn-multitenancy">
+        <span class="icon">🏢</span>
+        <span class="info">
+          <div class="name">Multi-Tenant Architecture</div>
+          <div class="tag tag-sim">Simulation</div>
+        </span>
+      </button>
     </div>
 
     <div class="sidebar-section">
-      <div class="sidebar-title">🎤 Interview Practice (6)</div>
+      <div class="sidebar-title">🎤 Interview Practice (11)</div>
       <button class="scenario-btn" onclick="loadScenario('whyhire')" id="btn-whyhire">
         <span class="icon">💼</span>
         <span class="info">
@@ -454,10 +503,45 @@
           <div class="tag tag-int">Interview</div>
         </span>
       </button>
+      <button class="scenario-btn" onclick="loadScenario('medication')" id="btn-medication">
+        <span class="icon">💊</span>
+        <span class="info">
+          <div class="name">Medication Interactions</div>
+          <div class="tag tag-int">Interview</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('patientmatching')" id="btn-patientmatching">
+        <span class="icon">🔍</span>
+        <span class="info">
+          <div class="name">Patient Matching</div>
+          <div class="tag tag-int">Interview</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('realtime')" id="btn-realtime">
+        <span class="icon">⚡</span>
+        <span class="info">
+          <div class="name">Real-Time Updates</div>
+          <div class="tag tag-int">Interview</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('scaling')" id="btn-scaling">
+        <span class="icon">📈</span>
+        <span class="info">
+          <div class="name">Scale to 100K Patients</div>
+          <div class="tag tag-int">Interview</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('failover')" id="btn-failover">
+        <span class="icon">🔧</span>
+        <span class="info">
+          <div class="name">Database Failover</div>
+          <div class="tag tag-int">Interview</div>
+        </span>
+      </button>
     </div>
 
     <div class="sidebar-section">
-      <div class="sidebar-title">💡 Concept Check (4)</div>
+      <div class="sidebar-title">💡 Concept Check (6)</div>
       <button class="scenario-btn" onclick="loadScenario('docker')" id="btn-docker">
         <span class="icon">🐳</span>
         <span class="info">
@@ -486,6 +570,20 @@
           <div class="tag tag-con">Concept</div>
         </span>
       </button>
+      <button class="scenario-btn" onclick="loadScenario('fhir')" id="btn-fhir">
+        <span class="icon">🔗</span>
+        <span class="info">
+          <div class="name">FHIR Integration</div>
+          <div class="tag tag-con">Concept</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('hl7')" id="btn-hl7">
+        <span class="icon">📋</span>
+        <span class="info">
+          <div class="name">HL7 v2 Parsing</div>
+          <div class="tag tag-con">Concept</div>
+        </span>
+      </button>
     </div>
   </div>
 
@@ -497,22 +595,22 @@
       <div class="welcome" id="welcome">
         <div style="font-size:48px">🏥</div>
         <h2>Welcome to Simulation Lab</h2>
-        <p>Practice real scenarios you'll face in Healthcare AI Engineer interviews. 16 scenarios covering simulations, interviews, and technical concepts.</p>
+        <p>Practice real scenarios you'll face in Healthcare AI Engineer interviews. 30 scenarios covering simulations, interviews, and technical concepts.</p>
         <div class="welcome-cards">
           <div class="welcome-card">
             <div class="icon">🎭</div>
             <div class="title">Simulations</div>
-            <div class="desc">6 real-world system scenarios including Docker and debugging</div>
+            <div class="desc">13 real-world system scenarios including deployment and incident response</div>
           </div>
           <div class="welcome-card">
             <div class="icon">🎤</div>
             <div class="title">Interview</div>
-            <div class="desc">6 interview scenarios including testing and system design</div>
+            <div class="desc">11 interview scenarios including healthcare-specific design challenges</div>
           </div>
           <div class="welcome-card">
             <div class="icon">💡</div>
             <div class="title">Concepts</div>
-            <div class="desc">4 deep-dive technical concepts: Docker, PostgreSQL, HIPAA, Pooling</div>
+            <div class="desc">6 deep-dive technical concepts: Docker, PostgreSQL, HIPAA, FHIR, HL7, Pooling</div>
           </div>
         </div>
       </div>
@@ -589,7 +687,7 @@
       </div>
       <div class="stat-divider"></div>
       <div class="stat">
-        <div class="stat-value" style="color:var(--accent)">16</div>
+        <div class="stat-value" style="color:var(--accent)">30</div>
         <div class="stat-label">Total Scenarios</div>
       </div>
       <div class="stat-divider"></div>
@@ -896,8 +994,883 @@ Increase pool_size (but don't go crazy — PostgreSQL has connection limits too)
 Find connection leaks (endpoints not closing DB sessions)<br>
 Add connection pooling metrics to monitoring<br><br>
 <strong>Interview gold:</strong> "Connection pooling is why MindBridge can handle 50 concurrent users on a single backend instance. Without it, we'd need 10× the server capacity or users would experience random timeouts."`
+  },
+
+  // === ADVANCED SIMULATIONS (7 NEW) ===
+  
+  ratelimit: {
+    type: "simulation",
+    title: "Implement Rate Limiting",
+    question: "Case managers are reporting '429 Too Many Requests' errors when running batch screenings. Your rate limit is 100 requests/hour per user. How do you explain this to them and what's the fix?",
+    context: "Balance user experience with API protection. Show you understand both technical and communication aspects.",
+    ideal: `<strong>Why it's happening:</strong><br>
+Rate limiting is a defense mechanism that blocks users making excessive requests. 100 requests/hour means one request every 36 seconds. If a case manager is running batch screenings for 50 patients, they exceed this limit fast. This was designed for normal user behavior, not batch operations.<br><br>
+<strong>How to explain to the case manager:</strong><br>
+"Your batch screening workflow is hitting a rate limit designed to prevent abuse. We're going to solve this in two ways: (1) immediate workaround for you, (2) permanent fix in the code."<br><br>
+<strong>IMMEDIATE WORKAROUND:</strong><br>
+Don't screen 50 patients in rapid sequence. Space them out over 2 minutes. Or contact IT and we'll temporarily raise your limit while we implement the permanent fix.<br><br>
+<strong>PERMANENT FIX — Implement Redis-based rate limiting with tiered limits:</strong><br>
+from slowapi import Limiter<br>
+limiter = Limiter(key_func=get_remote_address, storage_uri="redis://localhost")<br>
+@app.post("/screenings")<br>
+@limiter.limit("100/hour; 10/minute")<br>
+async def create_screening(): ...<br><br>
+This allows 10 requests per minute (covers normal use) but 100/hour overall (prevents abuse). Batch users stay under 10/min by spreading requests over 5 minutes.<br><br>
+<strong>BETTER — User-tier rate limits:</strong><br>
+Regular case managers: 100/hour<br>
+Power users (batch processing): 1000/hour (with supervisor approval)<br>
+AI/automation: higher limits with API keys<br><br>
+Check user role in the database and apply different limits:<br>
+limit = "1000/hour" if user.tier == "power_user" else "100/hour"<br><br>
+<strong>BEST PRACTICE — Alert before limit:</strong><br>
+Include rate limit headers in every response:<br>
+X-RateLimit-Limit: 100<br>
+X-RateLimit-Remaining: 23<br>
+X-RateLimit-Reset: 1629234000<br>
+Frontend shows a warning when remaining < 10: "You have 23 requests left this hour."<br><br>
+<strong>Interview gold:</strong> "Rate limiting protects the API, but it shouldn't be invisible. Show users how close they are to the limit and offer tiered limits for different use cases. A 429 error on a patient's life-or-death screening is a UX failure."`
+  },
+
+  circuitbreaker: {
+    type: "simulation",
+    title: "Circuit Breaker Pattern",
+    question: "Claude's API goes down. Your system makes 50 requests/second to it. Each request times out after 30 seconds. What happens to MindBridge?",
+    context: "This tests understanding of cascading failures. Show you know defensive programming patterns.",
+    ideal: `<strong>The disaster scenario:</strong><br>
+Claude API goes down at 2 PM. MindBridge continues sending 50 req/sec to the dead API. Each one waits 30 seconds for a timeout. Within seconds, you have 1500 requests waiting (50 × 30), consuming all database connections. The pool is exhausted. Now EVERY API call — even unrelated ones like patient lookup — fails because there are no connections left. The entire system cascades into failure.<br><br>
+<strong>Result:</strong> MindBridge appears completely dead even though YOUR code is fine. Case managers can't access patient data at all.<br><br>
+<strong>THE FIX — Implement Circuit Breaker Pattern:</strong><br>
+The circuit breaker has 3 states:<br>
+<strong>CLOSED (normal):</strong> Requests go through. If success rate > 95%, stay closed.<br>
+<strong>OPEN (emergency):</strong> Claude is down. Don't send more requests. Immediately fail new requests with error "Risk assessment temporarily unavailable"<br>
+<strong>HALF_OPEN (recovery):</strong> Periodically try 1 test request to Claude. If it succeeds, go back to CLOSED. If it fails, stay OPEN.<br><br>
+<strong>Implementation using PyBreaker library:</strong><br>
+from pybreaker import CircuitBreaker<br>
+claude_breaker = CircuitBreaker(fail_max=5, reset_timeout=60)<br>
+try:<br>
+  response = claude_breaker.call(claude_api.call, patient_data)<br>
+except CircuitBreakerListener as e:<br>
+  return {risk: "UNKNOWN", message: "AI service temporarily down"}<br><br>
+If Claude fails 5 times in a row, the circuit opens. Stop hitting it. Wait 60 seconds before retrying. Zero cascade.<br><br>
+<strong>Fallback behavior:</strong><br>
+When circuit is OPEN, don't just error. Provide graceful degradation:<br>
+"Risk assessment unavailable (Claude API down). Using last known assessment from 15 minutes ago: HIGH RISK. A clinician will review when the service recovers."<br><br>
+Better than showing an error, better than returning stale data silently.<br><br>
+<strong>Monitoring:</strong><br>
+Log every circuit state change. Alert ops when circuit opens: "Claude API circuit breaker tripped. Cascade prevented."<br><br>
+<strong>Interview gold:</strong> "Circuit breakers prevent cascading failures. Without one, a downstream service failure can bring down your entire system in seconds. It's a pattern every production engineer should know."`
+  },
+
+  caching: {
+    type: "simulation",
+    title: "Redis Caching Layer",
+    question: "Every dashboard load queries 'Get list of all medications' — a 5-second query that returns the same 400 medications every time. How would you optimize this?",
+    context: "Classic caching problem. Show you understand cache invalidation and TTL strategies.",
+    ideal: `<strong>The problem:</strong><br>
+Every case manager loads the dashboard. Dashboard queries: SELECT * FROM medications. This 5-second query runs EVERY dashboard load. If 20 case managers use the dashboard, that's 100 seconds of database query time when the data is identical.<br><br>
+<strong>STEP 1 — Identify the opportunity:</strong><br>
+The medication list is reference data. It changes rarely (maybe quarterly when new drugs are approved). Perfect for caching.<br><br>
+<strong>STEP 2 — Add Redis caching:</strong><br>
+from redis import Redis<br>
+redis = Redis(host='localhost')<br><br>
+async def get_medications():<br>
+  # Try cache first<br>
+  cached = redis.get('medications:list')<br>
+  if cached:<br>
+    return json.loads(cached)  # 1ms instead of 5000ms<br><br>
+  # Cache miss — query database<br>
+  meds = await db.query("SELECT * FROM medications")<br><br>
+  # Store in cache with 1 hour TTL<br>
+  redis.setex('medications:list', 3600, json.dumps(meds))<br>
+  return meds<br><br>
+<strong>Result:</strong> First dashboard load: 5 seconds. All subsequent loads: 1 millisecond. 5000× faster.<br><br>
+<strong>STEP 3 — Cache invalidation:</strong><br>
+Here's the hard part. When should the cache expire?<br>
+Option 1: TTL of 1 hour. After 1 hour, cache expires. Database is checked again. Simple, but could serve stale data for up to 1 hour.<br>
+Option 2: Event-based invalidation. When an admin adds a new medication via POST /medications, immediately invalidate the cache:<br>
+  redis.delete('medications:list')<br>
+  Database is queried again on next load. Always fresh.<br><br>
+<strong>STEP 4 — Cache warming (optional):</strong><br>
+On app startup, pre-load the medications into cache. When a case manager first loads the dashboard, it's already cached. Zero wait.<br><br>
+@app.on_event("startup")<br>
+async def warm_cache():<br>
+  meds = await db.query("SELECT * FROM medications")<br>
+  redis.setex('medications:list', 3600, json.dumps(meds))<br><br>
+<strong>The tradeoff:</strong><br>
+Benefit: 5000× faster loads, reduced database load<br>
+Cost: Redis memory, staleness window, cache invalidation complexity<br>
+Worth it? Absolutely. Reference data caching is high-impact, low-risk.<br><br>
+<strong>Interview gold:</strong> "Cache invalidation is one of the two hardest problems in computer science. For reference data, TTL + event-based invalidation is the safest approach. Always measure the benefit — 5000× faster is worth the complexity."`
+  },
+
+  deployment: {
+    type: "simulation",
+    title: "Zero-Downtime Deployment",
+    question: "You need to deploy a database schema change (adding a new column to patients table). How do you do it without taking MindBridge offline?",
+    context: "Production deployment requires careful planning. Show you understand database migrations and backward compatibility.",
+    ideal: `<strong>The naive approach (FAILS):</strong><br>
+Stop the backend. ALTER TABLE patients ADD COLUMN risk_assessment_date DATE. Start the backend. Result: 5 minutes of downtime. In healthcare, that's unacceptable.<br><br>
+<strong>THE CORRECT APPROACH — 3-Phase Deployment:</strong><br><br>
+<strong>PHASE 1 — Backward compatibility (deploy backend code):</strong><br>
+Update the backend code to handle the NEW schema before the schema exists. This seems weird but it's the key to zero downtime.<br>
+Add code that checks: if column exists, use it. If not, use default value.<br>
+python<br>
+if 'risk_assessment_date' in columns:<br>
+  created_at = patient.risk_assessment_date<br>
+else:<br>
+  created_at = datetime.now()  # Fallback<br><br>
+Deploy this code. Old schema still exists. No downtime. All requests still work.<br><br>
+<strong>PHASE 2 — Run the migration (background):</strong><br>
+During off-peak hours (2 AM), run the ALTER TABLE without taking the service down. PostgreSQL allows concurrent connections during schema changes (in most cases).<br>
+But here's the issue: ALTER TABLE ... ADD COLUMN on a 100M row table takes TIME. Lock the table, and you block case managers from accessing patients. Solution: Use online migration tools.<br><br>
+Option A: Postgres 11+ ADD COLUMN with default is relatively fast<br>
+Option B: Use pg_gzip or similar tools for truly massive tables<br>
+Option C: Create new table, backfill data, swap tables (manual but 100% safe)<br><br>
+<strong>PHASE 3 — Remove the fallback code (deploy backend code again):</strong><br>
+Once migration is complete, deploy clean code that always expects the column to exist.<br>
+if 'risk_assessment_date' in columns:  # Never true now, safe to remove<br><br>
+<strong>Full example timeline:</strong><br>
+3:30 PM: Deploy code with fallback logic. Env: prod. Result: working, old schema.<br>
+2:00 AM: ALTER TABLE patients ADD COLUMN risk_assessment_date DATE DEFAULT null. Duration: 2 minutes. Zero downtime.<br>
+9:00 AM: Deploy code without fallback. Result: working, new schema.<br><br>
+Total downtime: 0 minutes. Case managers never notice.<br><br>
+<strong>Rollback plan:</strong><br>
+If something goes wrong at Phase 1, redeploy code without the fallback. If Phase 2 fails, rollback and retry. If Phase 3 fails, code is still compatible with old schema.<br><br>
+<strong>Interview gold:</strong> "Zero-downtime deployments require thinking backward: code first, schema second. Write code that works with both old and new schema. Then change the schema. Then clean up the code. This is standard practice at every major tech company."`
+  },
+
+  monitoring: {
+    type: "simulation",
+    title: "Production Monitoring & Alerts",
+    question: "Your CTO asks: 'How do we know if MindBridge is working?' What metrics do you monitor and what triggers an alert?",
+    context: "Production systems need observability. Show you think about proactive monitoring, not just reactive debugging.",
+    ideal: `<strong>The wrong answer:</strong> "I check the dashboard if it's running." That's reactive. You measure, you don't wait for users to complain.<br><br>
+<strong>CRITICAL METRICS (Real-time monitoring):</strong><br><br>
+<strong>1. Application Health:</strong><br>
+• Response time: API endpoints should return in < 500ms. Alert if > 1000ms (something is slow)<br>
+• Error rate: < 1% of requests should fail. Alert if > 5%<br>
+• Availability: Uptime target 99.9%. Alert if any endpoint is unavailable for 5+ minutes<br>
+• Database connection pool: Alert if pool_size usage > 80% (approaching exhaustion)<br><br>
+<strong>2. Healthcare-Specific Metrics:</strong><br>
+• AI screening latency: Claude API calls should complete in < 30s. Alert if > 60s<br>
+• Audit log volume: Every patient access should be logged. Alert if audit logging fails<br>
+• Overdue screenings: How many patients haven't been screened in 30 days? (Clinical concern, not technical)<br><br>
+<strong>3. Infrastructure Metrics:</strong><br>
+• Database CPU: Alert if > 80%<br>
+• Disk space: Alert if < 20% free<br>
+• Memory usage: Alert if > 85%<br><br>
+<strong>ALERT TIERS — Not all alerts are equal:</strong><br><br>
+<strong>CRITICAL (Page on-call engineer immediately):</strong><br>
+• API is down (no response to health check)<br>
+• Database is unreachable<br>
+• Payment system is down<br>
+Silencing a CRITICAL alert: unacceptable<br><br>
+<strong>WARNING (Alert but don't page, review next morning):</strong><br>
+• Response time > 2 seconds<br>
+• Error rate > 5%<br>
+• Cache hit rate drops below 50%<br><br>
+<strong>INFO (Log, useful for debugging):</strong><br>
+• Database query slow (but < 5s)<br>
+• New user signup<br>
+• Patient screening completed<br><br>
+<strong>Implementation example:</strong><br>
+from prometheus_client import Counter, Histogram, Gauge<br>
+request_duration = Histogram('request_duration_seconds', 'Request latency')<br>
+request_errors = Counter('request_errors_total', 'Request errors')<br>
+connection_pool = Gauge('db_connection_pool_usage', 'DB pool usage')<br><br>
+@app.post("/screenings")<br>
+async def create_screening():<br>
+  with request_duration.time():<br>
+    try:<br>
+      result = await claude_api.call(...)<br>
+      if result.success:<br>
+        return result<br>
+    except Exception as e:<br>
+      request_errors.inc()<br>
+      raise<br><br>
+<strong>Dashboard alerts (example PagerDuty/DataDog):</strong><br>
+if response_time > 1000ms for 5 consecutive minutes:<br>
+  alert_severity = "CRITICAL"<br>
+  notify_on_call_engineer()<br><br>
+if error_rate > 10% for 10 consecutive minutes:<br>
+  alert_severity = "WARNING"<br>
+  log_to_slack_monitoring_channel()<br><br>
+<strong>Interview gold:</strong> "Production monitoring isn't about vanity metrics. It's about knowing the moment something breaks before users do. Alert on what matters: availability, latency, errors. Ignore the rest."`
+  },
+
+  incident: {
+    type: "simulation",
+    title: "Production Incident Response",
+    question: "3 PM on a Tuesday: Case managers report 'all patients showing as LOW risk' regardless of actual data. What do you do in the first 10 minutes?",
+    context: "Incident response tests composure under pressure. Show systematic thinking, not panic.",
+    ideal: `<strong>MINUTE 0 — Assess severity:</strong><br>
+Is this a data integrity issue (risk assessments are WRONG) or a display issue (UI showing wrong data)?<br>
+How many users are affected? All case managers or just some?<br>
+Is patient safety at risk? YES — case managers might discharge a HIGH-RISK patient thinking they're low risk.<br>
+This is CRITICAL. Escalate immediately.<br><br>
+<strong>MINUTE 1 — Triage:</strong><br>
+Open Slack war room. Ping: Your manager, on-call database engineer, on-call backend engineer.<br>
+Message: "INCIDENT: Risk assessment showing as LOW for all patients. Possible data corruption. Investigating."<br>
+Avoid: Panic. Keep communication clear and factual.<br><br>
+<strong>MINUTE 2 — Duplicate issue check:</strong><br>
+Is this affecting MindBridge in production only, or dev/staging too?<br>
+Query the database directly (not through the API):<br>
+SELECT count(*) FROM screenings WHERE risk_level = 'LOW';<br>
+SELECT count(*) FROM screenings WHERE risk_level = 'HIGH';<br>
+Check: Did the actual data in the database change, or is it a display bug?<br><br>
+<strong>MINUTE 3 — Check recent deployments:</strong><br>
+What deployed in the last 3 hours?<br>
+Did the risk calculation logic change?<br>
+Was there a database migration?<br>
+Check git log: git log --oneline -10<br>
+If a recent deployment could have caused this, prepare to rollback.<br><br>
+<strong>MINUTE 4 — Check the application logs:</strong><br>
+tail -f logs/app.log | grep -i risk<br>
+tail -f logs/error.log<br>
+Check Claude API logs: Did the model behavior change? Did it start returning only LOW risk assessments?<br><br>
+<strong>MINUTE 5 — Hypothesis:</strong><br>
+If database data is correct but API is returning LOW for all: Application bug.<br>
+If database data is all LOW: Data corruption or bad migration.<br><br>
+Most likely: Recent deployment changed risk calculation threshold.<br>
+Prepare rollback command (if your current deploy seems wrong):<br>
+git revert <commit><br><br>
+<strong>MINUTE 6 — Communicate status:</strong><br>
+Post to war room: "Investigating. Initial diagnosis: possible risk threshold change in recent deploy. Checking logs."<br>
+Update status page: "Investigating risk assessment accuracy. No patient data loss detected."<br><br>
+<strong>MINUTE 7 — Start fix OR rollback:</strong><br>
+If you found a recent deploy that changed risk formula: ROLLBACK<br>
+git revert <bad_commit><br>
+Deploy immediately. Monitor.<br><br>
+If it's a data issue: Don't deploy yet. Keep investigating.<br><br>
+<strong>MINUTE 10 — Report status:</strong><br>
+"Identified issue: Deploy from 1:15 PM changed risk threshold from 3.0 to 5.0. Rolled back. Monitoring now. All screenings should show correct risk levels."<br><br>
+<strong>AFTER INCIDENT (tonight, not tomorrow):</strong><br>
+1. Postmortem: Why did this deploy happen without catching the bug?<br>
+2. Remediation: Add automated test that checks ≥1 patient has HIGH risk in test data. Catches this next time.<br>
+3. Communication: Clinic leadership gets summary: "Brief incident. Root cause identifies. Preventive measures in place."<br><br>
+<strong>Interview gold:</strong> "Incident response is systematic: assess severity, gather info, form hypothesis, fix/rollback, monitor, communicate, postmortem. Never panic. A clear head fixes incidents in minutes. Panic extends them for hours."`
+  },
+
+  multitenancy: {
+    type: "simulation",
+    title: "Multi-Tenant Architecture",
+    question: "MindBridge currently serves one clinic. A second clinic signs up. They want their data completely isolated. How do you architect this?",
+    context: "Multi-tenancy is a common scaling challenge. Show you understand data isolation and security boundaries.",
+    ideal: `<strong>The constraint:</strong><br>
+Clinic A wants zero visibility into Clinic B's patient data. Not even metadata (how many patients, how many screenings). This is both a contractual requirement and a privacy requirement.<br><br>
+<strong>THREE APPROACHES (with tradeoffs):</strong><br><br>
+<strong>APPROACH 1 — Shared Database, Shared Schema (simplest, least secure):</strong><br>
+One database, one patients table, add clinic_id column.<br>
+CREATE TABLE patients (id, name, clinic_id, risk_level, ...);<br><br>
+Row-level security at the database level:<br>
+CREATE POLICY clinic_isolation ON patients<br>
+USING (clinic_id = current_setting('user_clinic_id'));<br><br>
+Pros: Simple to implement, easy to manage one database<br>
+Cons: One bug in the code and Clinic A can see Clinic B's data. HIPAA nightmare.<br><br>
+<strong>APPROACH 2 — Shared Database, Separate Schemas (better):</strong><br>
+One PostgreSQL database, separate schema per clinic.<br>
+CREATE SCHEMA clinic_a;<br>
+CREATE SCHEMA clinic_b;<br>
+CREATE TABLE clinic_a.patients (...);<br>
+CREATE TABLE clinic_b.patients (...);<br><br>
+On login, set search_path:<br>
+SET search_path TO 'clinic_a';<br>
+SELECT * FROM patients; -- Only sees clinic_a patients<br><br>
+Pros: Better isolation, single database<br>
+Cons: Still one database server, complex migrations (need to run on each schema)<br><br>
+<strong>APPROACH 3 — Separate Databases (safest, most expensive):</strong><br>
+Clinic A gets their own PostgreSQL instance. Clinic B gets their own instance. Completely isolated.<br>
+postgres://clinic_a_db.railway.app:5432/mindbridge (Clinic A)<br>
+postgres://clinic_b_db.railway.app:5432/mindbridge (Clinic B)<br><br>
+FastAPI routes to the correct database based on clinic_id:<br>
+if user.clinic_id == 'clinic_a':<br>
+  db = get_db(DSN_A)<br>
+else:<br>
+  db = get_db(DSN_B)<br><br>
+Pros: Complete isolation, regulatory-approved (HIPAA loves this)<br>
+Cons: Multiple database instances = higher cost, more ops overhead<br><br>
+<strong>MY RECOMMENDATION FOR MINDBRIDEGE:</strong><br>
+Start with Approach 2 (shared DB, separate schemas). It's the middle ground:<br>
+• Good isolation (Approach 1 bug won't expose data)<br>
+• Reasonable cost (one database server)<br>
+• Scales to ~20 clinics before capacity issues<br><br>
+If you grow beyond 20 clinics and need stronger isolation guarantees, move to Approach 3 (separate databases).<br><br>
+<strong>Additional considerations:</strong><br>
+<strong>User authentication:</strong> Who can log in? Only clinic staff with clinic_id match.<br>
+SELECT user FROM users WHERE email=? AND clinic_id = logged_in_user.clinic_id<br><br>
+<strong>Audit logging:</strong> Separate audit tables per clinic (or clinic_id column in shared table)<br><br>
+<strong>Backups:</strong> If using separate databases, backup each independently. Clinic A will want their own backup/recovery strategy.<br><br>
+<strong>Interview gold:</strong> "Multi-tenancy is about isolation guarantees. Row-level security is fragile. Separate schemas are middle-ground. Separate databases are fortress. Choose based on your risk tolerance and budget."`
+  },
+
+  // === HEALTHCARE-SPECIFIC (4 NEW) ===
+
+  fhir: {
+    type: "concept",
+    title: "FHIR Integration",
+    question: "A hospital wants MindBridge to integrate with their Epic EHR using FHIR R4. What is FHIR and how would you approach this integration?",
+    context: "FHIR is the healthcare data interoperability standard. Show you understand the healthcare ecosystem.",
+    ideal: `<strong>What FHIR is:</strong><br>
+FHIR (Fast Healthcare Interoperability Resources) is the modern standard for exchanging healthcare data. It's RESTful, JSON-based, and designed to make different healthcare systems talk to each other.<br><br>
+Think of it like: Your MindBridge API vs. Epic's API. FHIR is the common language both speak.<br><br>
+<strong>FHIR Resources (the building blocks):</strong><br>
+Every piece of healthcare data is a "Resource" with a defined structure:<br>
+• Patient resource: demographics, name, DOB, contact info<br>
+• Encounter resource: visits, appointments, ED visits<br>
+• Observation resource: vital signs, test results, clinical measurements<br>
+• Medication resource: medication lists, dispensing info<br>
+• Condition resource: diagnoses<br><br>
+Epic and MindBridge both speak these standard structures. No custom mapping needed.<br><br>
+<strong>Why FHIR matters for MindBridge:</strong><br>
+Instead of asking the hospital "send me a CSV with patient data," you say "I'll read your FHIR API." You get:<br>
+• Real-time data (don't wait for manual exports)<br>
+• Standardized structure (one code handles any hospital)<br>
+• Better data quality (hospital maintains it)<br><br>
+<strong>Integration approach (3 phases):</strong><br><br>
+<strong>PHASE 1 — FHIR API Connection:</strong><br>
+Epic exposes FHIR REST API at: https://epic.hospital.com/fhir/R4/<br>
+Authenticate using SMART on FHIR (OAuth 2.0 for healthcare):<br>
+1. MindBridge requests auth from Epic<br>
+2. Hospital admin grants permission<br>
+3. MindBridge gets access token<br>
+4. MindBridge can now call Epic's API<br><br>
+<strong>PHASE 2 — Data Sync (Pull):</strong><br>
+Scheduled job (nightly or real-time):<br>
+GET https://epic.hospital.com/fhir/R4/Patient?_lastUpdated=gt2024-02-20<br>
+This returns all patients modified since yesterday, as FHIR JSON.<br><br>
+Example FHIR Patient resource in JSON:<br>
+{<br>
+  "resourceType": "Patient",<br>
+  "id": "12345",<br>
+  "name": [{family: "Johnson", given: ["Marcus"]}],<br>
+  "birthDate": "1985-03-15",<br>
+  "contact": [{telecom: [{system: "phone", value: "555-1234"}]}]<br>
+}<br><br>
+Map this to MindBridge schema:<br>
+INSERT INTO patients (id, name, dob, phone) VALUES (12345, 'Marcus Johnson', 1985-03-15, '555-1234');<br><br>
+<strong>PHASE 3 — Data Enrichment:</strong><br>
+GET /Observation?patient=12345 — Get vital signs, test results<br>
+GET /Medication?patient=12345 — Get medication list<br>
+GET /Condition?patient=12345 — Get diagnoses<br><br>
+Process all this to create your risk assessment:<br>
+• Medications => medication_adherence<br>
+• Conditions => comorbidities<br>
+• Observations => clinical factors<br><br>
+<strong>Challenges you'll face:</strong><br>
+1. Epic and other EHRs implement FHIR slightly differently (profiles). You need to handle variations.<br>
+2. Permission scope: You can only read what the hospital grants ("read:Patient" vs. "read:Medication").<br>
+3. Real-time updates: FHIR polling is nightly. For live data, use webhooks (hospital pushes updates to you).<br><br>
+<strong>Interview gold:</strong> "FHIR is the healthcare interoperability standard. Instead of custom integrations with each EHR, you code to FHIR once and it works with Epic, Cerner, eClinicalWorks, etc. It's the future of healthcare IT."`
+  },
+
+  hl7: {
+    type: "concept",
+    title: "HL7 v2 Message Parsing",
+    question: "A clinic sends you patient data as HL7 v2 messages, not JSON. What is HL7 and how would you parse it?",
+    context: "HL7 v2 is the legacy healthcare data format. Still extremely common. Show you can bridge old and new systems.",
+    ideal: `<strong>What HL7 v2 is (the legacy standard before FHIR):</strong><br>
+HL7 v2 is a pipe-delimited text format that's been used by hospitals since the 1980s. It's ugly, but it's everywhere.<br><br>
+Example HL7 v2 message:<br>
+MSH|^~\\|MindBridge|Hospital|System|System|202402201500||ADT^A04|MSG00001|P|2.4<br>
+PID|1||12345^^^MRN||Johnson^Marcus||19850315|M|||123 Main St^Apt 4^Anytown^CA^90210<br>
+PV1|1|I|2East^210^1|H||||||||||||||MRN20240220|||||||||||||||||||||201...<br><br>
+Looks like gibberish, right? But it's structured.<br><br>
+<strong>HL7 Structure (segments separated by ^ ~ \):</strong><br>
+• MSH: Message header metadata<br>
+• PID: Patient demographics<br>
+• PV1: Patient visit/encounter<br>
+• OBX: Observations (vital signs, test results)<br>
+• RXA: Medication administration<br><br>
+Example breakdown of the PID segment:<br>
+PID|1||12345^^^MRN||Johnson^Marcus||19850315|M|||123 Main St^Apt 4^Anytown^CA^90210<br>
+    |patient sequence number<br>
+         |field separator (^)<br>
+                    |patient ID<br>
+                                 |last name^first name<br>
+                                                    |birth date<br>
+                                                         |gender<br><br>
+<strong>How to parse HL7 v2 in Python:</strong><br>
+from hl7apy.core import parse_message<br>
+msg = parse_message(hl7_raw_text)<br>
+<br>
+name = msg['PID'][-5][0][0]  # Get PID segment, patient name field<br>
+Or use a more readable library:<br>
+<br>
+import hl7<br>
+parsed = hl7.parse(message_string)<br>
+patient_name = parsed[0][5]  # PID segment, name field<br>
+patient_dob = parsed[0][7]   # PID segment, DOB field<br><br>
+<strong>Real-world MindBridge example:</strong><br>
+Hospital sends HL7 messages with patient data. MindBridge needs to:<br>
+1. Parse the HL7 v2 message<br>
+2. Extract patient demographics and medication list<br>
+3. Store in PostgreSQL in MindBridge schema<br>
+4. Run risk assessment<br><br>
+async def ingest_hl7_message(raw_hl7):<br>
+  try:<br>
+    msg = parse_hl7(raw_hl7)  # Custom parser<br>
+    patient = {<br>
+      'name': msg.PID.patient_name,<br>
+      'dob': msg.PID.birth_date,<br>
+      'clinic_id': msg.MSH.sending_facility<br>
+    }<br>
+    await db.patients.insert(patient)<br>
+    # Now run screening on new patient<br>
+    screening = await run_screening(patient)<br>
+  except HL7ParseError as e:<br>
+    log_error(f"Invalid HL7: {e}")<br>
+    notify_hospital()  # Send bounce message back to hospital<br><br>
+<strong>Challenges:</strong><br>
+1. HL7 is flexible — different hospitals use it differently. You need custom mappings for each hospital.<br>
+2. Error handling: If HL7 is malformed, reject it and send back an error acknowledgement (HA^ACK message).<br>
+3. Version mismatch: Hospital sends HL7 v2.3, you expect v2.4. Handle both.<br><br>
+<strong>The bridge to FHIR:</strong><br>
+Many hospitals are moving TO FHIR FROM HL7. But legacy systems still send HL7. Your job: accept both, convert to your internal format, process uniformly.<br><br>
+<strong>Interview gold:</strong> "HL7 v2 is legacy but ubiquitous in healthcare. You'll likely encounter it. The key is systematic parsing and defensive error handling."`
+  },
+
+  medication: {
+    type: "interview",
+    title: "Medication Interaction Checking",
+    question: "Design a feature that alerts case managers if a patient is prescribed two medications with dangerous interactions. How would you build this?",
+    context: "Healthcare-specific system design. Show you understand clinical safety AND technical architecture.",
+    ideal: `<strong>The requirement:</strong><br>
+When a patient's medication list is updated (from EHR sync or manual entry), check for drug-drug interactions. If Patient X is on Medication A and Medication B, and A+B can cause a dangerous interaction, alert the case manager immediately.<br><br>
+<strong>DESIGN — Three components:</strong><br><br>
+<strong>COMPONENT 1 — Drug Interaction Database:</strong><br>
+You need a source of truth for drug interactions. Options:<br>
+Option A: Use a commercial API (DrugBank, FDA Interactions, RxNorm)<br>
+Option B: Build it from RxNorm (free from NIH)<br>
+<br>
+I'd use RxNorm API + supplement with clinical knowledge:<br>
+<br>
+CREATE TABLE drug_interactions (<br>
+  drug_a_id INTEGER,<br>
+  drug_b_id INTEGER,<br>
+  interaction_type VARCHAR (moderate|severe|contraindicated),<br>
+  description TEXT,<br>
+  management TEXT<br>
+);<br><br>
+Examples:<br>
+(Warfarin, Aspirin) -> SEVERE: "Increased bleeding risk"<br>
+(SSRIs, MAOIs) -> CONTRAINDICATED: "Risk of serotonin syndrome"<br>
+(Metformin, Alcohol) -> MODERATE: "Lactic acidosis risk"<br><br>
+<strong>COMPONENT 2 — Interaction Checker (Algorithm):</strong><br>
+When patient's medications change, run this:<br>
+<br>
+async def check_interactions(patient_id):<br>
+  meds = await get_patient_medications(patient_id)  # [Warfarin, Aspirin]<br>
+  interactions = []<br>
+  <br>
+  # Check all pairs<br>
+  for drug_a, drug_b in combinations(meds, 2):<br>
+    interaction = await find_interaction(drug_a, drug_b)<br>
+    if interaction and interaction.severity in ['SEVERE', 'CONTRAINDICATED']:<br>
+      interactions.append(interaction)<br>
+  <br>
+  return interactions<br><br>
+Result: [{drugs: [Warfarin, Aspirin], type: SEVERE, description: "Bleeding risk"}]<br><br>
+<strong>COMPONENT 3 — Alert UI/Workflow:</strong><br>
+Display the alert to case manager:<br>
+<br>
+🚨 CRITICAL MEDICATION INTERACTION<br>
+Patient: Marcus Johnson<br>
+Issue: Warfarin + Aspirin = Increased bleeding risk<br>
+Action: Contact prescriber immediately to review<br>
+Recommended: Consider alternative antiplatelet agent<br>
+<br>
+Buttons: [Acknowledge] [Contact Prescriber] [Override] [Escalate to MD]<br><br>
+<strong>Important design detail:</strong><br>
+DON'T auto-resolve the alert. A case manager must see and acknowledge it. Clinical safety requires human oversight.<br><br>
+<strong>Implementation in the pipeline:</strong><br>
+When EHR sync updates medications:<br>
+1. Sync new meds to PostgreSQL<br>
+2. Run check_interactions()<br>
+3. If alerts found, create ALERT record in database<br>
+4. Notify case manager (email, Slack, page)<br>
+5. Alert stays open until case manager clicks [Acknowledge]<br>
+6. Log the action: "Case manager acknowledged interaction, prescriber contacted"<br><br>
+<strong>Tricky edge cases:</strong><br>
+1. Over-the-counter drugs: Patient doesn't tell you they take Tylenol at home. Aspirin + Acetaminophen = interaction. Solution: Ask patient to list ALL medications (OTC, supplements, herbal).<br>
+2. Duplicate alerts: Don't alert every day if it's the same interaction. Alert once, then periodically (weekly) remind.<br>
+3. Severity tiers: SEVERE = immediate alert. MODERATE = info in UI. MINOR = log but don't alert.<br><br>
+<strong>Database schema:</strong><br>
+CREATE TABLE medication_interactions_alerts (<br>
+  id UUID,<br>
+  patient_id UUID,<br>
+  drug_a_id INTEGER,<br>
+  drug_b_id INTEGER,<br>
+  interaction_id REF drug_interactions,<br>
+  acknowledged_at TIMESTAMP,<br>
+  acknowledged_by USER_ID,<br>
+  action_taken TEXT,<br>
+  created_at TIMESTAMP<br>
+);<br><br>
+<strong>Interview gold:</strong> "Medication interactions are a patient safety issue. Design it so case managers can't miss the alert, but can't auto-dismiss it. Make humans responsible for clinical decisions. That's how you prevent adverse events."`
+  },
+
+  patientmatching: {
+    type: "interview",
+    title: "Patient Matching Algorithm",
+    question: "Two patient records: 'John Smith, DOB 1985-03-15' and 'Jonathan Smith, DOB 03/15/1985'. Same person or not? How do you handle patient matching?",
+    context: "Patient identity matching is a hard, unsolved problem in healthcare. Show you understand the nuances.",
+    ideal: `<strong>Why patient matching is hard:</strong><br>
+• Data entry errors: "John" vs. "Jonathan" — are they the same person?<br>
+• Date format inconsistency: 1985-03-15 vs. 03/15/1985 — parsing is tricky<br>
+• Missing data: What if one record has middle initial, one doesn't?<br>
+• Typos: "Smoth" vs. "Smith"<br>
+• Duplicate records in your own system: Same person entered twice<br>
+<br>
+In healthcare, this is called the "Patient Matching Problem." It's so common that there's a whole field (Master Patient Indexing) dedicated to it.<br><br>
+<strong>Naive approach (FAILS):</strong><br>
+if record1.name == record2.name and record1.dob == record2.dob:<br>
+  # Same person<br>
+<br>
+Result: "John" != "Jonathan" ... incorrectly says different people. WRONG.<br><br>
+<strong>BETTER APPROACH — Probabilistic Matching (Fellebi distance):</strong><br>
+Instead of exact match, calculate a "confidence score" (0-100) that two records are the same person.<br><br>
+Factors to compare:<br>
+• Name similarity: Levenshtein distance (John vs. Jonathan)<br>
+  levenshtein("John", "Jonathan") = 4 edits needed<br>
+  similarity = 1 - (4 / max_len) = 50% match<br>
+<br>
+• First name alias detection: "John" is commonly short for "Jonathan"<br>
+  alias_match("John", "Jonathan") = 95% match<br>
+<br>
+• DOB match: Exact match vs. month/year only vs. age estimate<br>
+  "1985-03-15" vs. "03/15/1985" = 100% match (same date)<br>
+<br>
+• gender match: Both male = +5 points<br>
+<br>
+• Address match: Same zip code = +10 points<br>
+<br>
+Calculate confidence = (name_similarity + dob_match + gender_match + address_match) / 100<br><br>
+Example matching:<br>
+Patient A: John Smith, 1985-03-15, M, 90210<br>
+Patient B: Jonathan Smith, 03/15/1985, M, 90210<br>
+<br>
+name_similarity: 95% (aliasing)<br>
+dob_match: 100%<br>
+gender_match: 100%<br>
+address_match: 100%<br>
+<br>
+confidence = (95 + 100 + 100 + 100) / 4 = 98.75% SAME PERSON<br><br>
+<strong>Decision logic:</strong><br>
+confidence > 95% => DEFINITE MATCH (auto-merge)<br>
+confidence 80-95% => PROBABLE MATCH (ask case manager to confirm)<br>
+confidence < 80% => DIFFERENT PEOPLE (create new record)<br><br>
+<strong>MindBridge implementation:</strong><br>
+from difflib import SequenceMatcher<br>
+import Levenshtein<br><br>
+def calculate_match_score(record1, record2):<br>
+  score = 0<br>
+  <br>
+  # Name similarity (weight: 40%)<br>
+  name_sim = Levenshtein.jaro_winkler(record1.name, record2.name)<br>
+  score += name_sim * 0.40<br>
+  <br>
+  # DOB match (weight: 40%)<br>
+  dob_match = 1.0 if record1.dob == record2.dob else 0.0<br>
+  score += dob_match * 0.40<br>
+  <br>
+  # Gender (weight: 10%)<br>
+  gender_match = 1.0 if record1.gender == record2.gender else 0.0<br>
+  score += gender_match * 0.10<br>
+  <br>
+  # Zip code (weight: 10%)<br>
+  zip_match = 1.0 if record1.zip == record2.zip else 0.0<br>
+  score += zip_match * 0.10<br>
+  <br>
+  return score<br><br>
+<strong>Workflow on patient import:</strong><br>
+When a new patient is imported (from EHR or CSV):<br>
+1. Calculate match_score against all existing patients<br>
+2. If top match > 95%: Alert case manager "Possibly duplicate: This might be [John Smith, DOB 1985-03-15]"<br>
+3. Case manager reviews and confirms merge<br>
+4. If merged: Copy all screening history from old record to new<br><br>
+<strong>Edge cases:</strong><br>
+1. Married name change: "Jane Doe" marries and becomes "Jane Smith." How do you handle retroactive name changes?<br>
+   Solution: Store both names in the database. Match on old + new names.<br>
+<br>
+2. Name order culturally different: "Yuki Tanaka" (Japanese: last name first) vs. "Tanaka Yuki" (Western order).<br>
+   Solution: Allow flexible name field parsing per patient's cultural background.<br>
+<br>
+3. Multiple birth certificates: Patient has different records under slightly different names (uncommon but happens).<br>
+   Solution: Patient can link multiple records to one identity manually.<br><br>
+<strong>The industry standard: MPI (Master Patient Index)</strong><br>
+Medical centers use MPI — a centralized database of patient identities used as the source of truth. Every patient gets a MPI ID that all systems use. This solves matching once at the center.<br><br>
+<strong>Interview gold:</strong> "Patient matching is probabilistic, not deterministic. Never merge records automatically based on name alone. Always ask a human to confirm. In healthcare, wrong matches can be lethal."`
+  },
+
+  // === SYSTEM DESIGN (3 NEW) ===
+
+  realtime: {
+    type: "interview",
+    title: "Real-Time Dashboard Updates",
+    question: "Design a feature where case managers see real-time updates when another user screens a patient — without refreshing the page. How do you implement this?",
+    context: "Real-time features are common interview questions. Show you understand WebSockets vs polling tradeoffs.",
+    ideal: `<strong>The requirement:</strong><br>
+Case Manager A screens Patient X, sets risk to HIGH. Instantly, Case Manager B's dashboard updates to show Patient X as HIGH risk — without Case Manager B refreshing the page.<br><br>
+<strong>THREE APPROACHES (with tradeoffs):</strong><br><br>
+<strong>APPROACH 1 — Regular Polling (Frontend asks every N seconds):</strong><br>
+setInterval(async () => {<br>
+  const patients = await fetch('/api/patients');<br>
+  render_dashboard(patients);<br>
+}, 5000);  // Check every 5 seconds<br><br>
+Pros:<br>
+• Simple to implement<br>
+• No special infrastructure<br>
+• Works with any backend<br><br>
+Cons:<br>
+• Latency: 5 seconds (user sees stale data for 5 seconds)<br>
+• Wasteful: Dashboard checks even if nothing changed<br>
+• Database load: 100 case managers × 1 query every 5s = 20 queries/second<br>
+• Bad UX: Lag of 5 seconds feels slow<br><br>
+<strong>APPROACH 2 — Server-Sent Events (SSE) (Server pushes updates one-direction):</strong><br>
+const eventSource = new EventSource('/api/updates');<br>
+eventSource.addEventListener('patient_screened', (event) => {<br>
+  const update = JSON.parse(event.data);  // {patient_id, risk_level}<br>
+  update_dashboard_ui(update);<br>
+});<br><br>
+Backend maintains a long-lived HTTP connection per client:<br>
+@app.get("/api/updates")<br>
+async def stream_updates(user_id: str):<br>
+  async def event_generator():<br>
+    while True:<br>
+      update = await listen_for_updates(user_id)  # Long polling<br>
+      yield f"data: {json.dumps(update)}\\n\\n"<br>
+      await asyncio.sleep(0.1)<br>
+  return StreamingResponse(event_generator(), media_type="text/event-stream")<br><br>
+When screening is created, broadcast to all connected clients:<br>
+async def create_screening(patient_id, risk_level):<br>
+  # Save to database<br>
+  await db.screenings.insert(...):<br>
+  # Notify all connected dashboard users<br>
+  broadcast({type: 'patient_screened', patient_id, risk_level})<br><br>
+Pros:<br>
+• Low latency: Updates arrive within 100ms<br>
+• Efficient: Only sent when data changes<br>
+• Built on HTTP (no new protocols)<br><br>
+Cons:<br>
+• Server connection per client (100 users = 100 open connections)<br>
+• Requires async backend (FastAPI supports it)<br><br>
+<strong>APPROACH 3 — WebSockets (Two-way, true real-time):</strong><br>
+Frontend establishes persistent WebSocket connection:<br>
+ws = new WebSocket("ws://localhost:8000/ws/updates");<br>
+ws.onmessage = (event) => {<br>
+  const update = JSON.parse(event.data);<br>
+  update_dashboard_ui(update);<br>
+};<br><br>
+Backend:<br>
+from fastapi import WebSocket<br>
+@app.websocket("/ws/updates/{user_id}")<br>
+async def websocket_endpoint(websocket: WebSocket, user_id: str):<br>
+  await websocket.accept()<br>
+  try:<br>
+    while True:<br>
+      # Listen for updates<br>
+      update = await listen_for_updates(user_id)<br>
+      await websocket.send_json(update)<br>
+  except WebSocketDisconnect:<br>
+    # Client disconnected, clean up<br>
+    pass<br><br>
+Pros:<br>
+• True real-time (updates within 50ms)<br>
+• Bidirectional (frontend can also send data without separate request)<br>
+• Efficient: Only sends deltas<br><br>
+Cons:<br>
+• More complex infrastructure (WebSocket servers, load balancing)<br>
+• Requires WebSocket support on infrastructure (Railway, Render support it)<br><br>
+<strong>MY RECOMMENDATION FOR MINDBRIGDE:</strong><br>
+Start with SSE (Approach 2). Here's why:<br>
+• Simple to implement<br>
+• Real enough latency (100ms is imperceptibly fast)<br>
+• Less infrastructure than WebSockets<br>
+• Good enough for healthcare (not a live multiplayer game)<br><br>
+Later, if you need <50ms latency (e.g., real-time collaboration on patient notes), move to WebSockets.<br><br>
+<strong>Implementation detail — broadcast mechanism:</strong><br>
+You need a way to notify all connected clients. Use Redis pub/sub:<br><br>
+import aioredis<br>
+redis = await aioredis.create_redis_pool('redis://localhost')<br><br>
+# When screening is created, publish event<br>
+async def create_screening(patient_id, risk_level):<br>
+  await db.screenings.insert(...)<br>
+  await redis.publish('updates', json.dumps({<br>
+    'type': 'patient_screened',<br>
+    'patient_id': patient_id,<br>
+    'risk_level': risk_level<br>
+  }))<br><br>
+# All connected SSE clients subscribe to this channel<br>
+# When event published, all get notified<br><br>
+<strong>Interview gold:</strong> "Real-time updates have tradeoffs: polling is simple, SSE is balanced, WebSockets are powerful. Choose based on latency requirements. For healthcare dashboards, SSE is usually the right choice."`
+  },
+
+  scaling: {
+    type: "interview",
+    title: "Scale to 100K Patients",
+    question: "MindBridge currently serves 1 clinic with 500 patients. A large hospital network with 100,000 patients wants to onboard. What breaks and how do you fix it?",
+    context: "Scaling challenges test systems thinking. Show you can identify bottlenecks before they become incidents.",
+    ideal: `<strong>WHAT BREAKS AT 100K PATIENTS (200× growth):</strong><br><br>
+<strong>1. DATABASE QUERIES SLOW DOWN</strong><br>
+Current: SELECT * FROM patients takes 10ms<br>
+At 100K: Same query takes 2 seconds (20× slower)<br>
+Why: No indexes. By default, PostgreSQL scans the entire table.<br>
+Fix:<br>
+CREATE INDEX idx_patients_clinic ON patients(clinic_id);<br>
+CREATE INDEX idx_patients_risk ON patients(risk_level);<br>
+CREATE INDEX idx_Screenings_patient ON screenings(patient_id);<br><br>
+Query now: 10ms again. Indexes let PostgreSQL skip to the right rows.<br><br>
+<strong>2. CONNECTION POOL EXHAUSTED</strong><br>
+Pool size: 10 (default)<br>
+Current traffic: 10 requests/second. No problems.<br>
+At 100K patients: Peak traffic hits 100 requests/second (101 case managers logging in at 9 AM).<br>
+Result: 9 of 10 connections in use. Request 11 waits in queue. Then timeouts.<br><br>
+Fix:<br>
+Increase pool_size=50, max_overflow=50<br>
+Now can handle 100 concurrent requests.<br>
+Monitor connection usage to avoid surprises.<br><br>
+<strong>3. SCREENING LATENCY EXPLODES</strong><br>
+Current: Run 1 screening, Claude API takes 5 seconds → User sees result in 5 seconds<br>
+At 100K: Hospital wants to screen 10,000 NEW patients on Monday morning. 10,000 × 5 sec = 50,000 seconds = 14 hours. But they're all submitted at once (queue depth = 10K).<br><br>
+Fix:<br>
+Make screening async + queue:<br>
+POST /api/screenings returns 202 Accepted immediately with task_id<br>
+Background Celery worker processes queue of 10K jobs<br>
+Case manager polls GET /screenings/task_id for status<br>
+When ready: "Your screening is complete, risk level: HIGH"<br><br>
+Now 10,000 patients are processed in background over 2 hours (5 concurrent workers), and the API returns instantly.<br><br>
+<strong>4. STORAGE EXPLODES</strong><br>
+Current: 500 patients × average 100KB per patient = 50MB<br>
+At 100K: 10GB of data<br>
+If you're using Railway or similar: May hit plan limits. Need larger database tier.<br><br>
+Hospital records retention: Healthcare often requires 7 years of data retention.<br>
+100K patients × 100KB × 7 years = 70GB<br><br>
+Fix:<br>
+Upgrade to production-grade database (not personal tier)<br>
+Implement data archiving: Move old screenings to archive storage after 1 year (keep quick access for recent data)<br>
+Consider separate analytics database for historical reporting<br><br>
+<strong>5. AUDIT LOGGING BECOMES A BOTTLENECK</strong><br>
+Every patient access = 1 audit log entry (HIPAA requirement)<br>
+Current: 500 patients × 5 views/day = 2,500 logs/day (negligible)<br>
+At 100K: 100K patients × 5 views/day = 500K logs/day<br>
+500K inserts/day = ~6 inserts/second, not a problem YET<br><br>
+At 1M patients: 5M logs/day = 58 inserts/second, OK but growing<br><br>
+Fix (preemptive):<br>
+Archive audit logs to separate table:<br>
+CREATE TABLE audit_log_archive_2024_q1 PARTITION...<br>
+Move completed months to archive (read-only)<br>
+Keep current month in fast table<br>
+Queries on audit_log_2024_q1 still work but don't scan massive log<br><br>
+<strong>6. FRONTEND PERFORMANCE</strong><br>
+Loading patient list: paginate<br>
+Dashboard: Don't load all 100K rows. Load 50 at a time with infinite scroll.<br><br>
+<strong>ARCHITECTURE CHANGES (Beyond just scaling):</strong><br><br>
+<strong>A. Sharding (if you grow to 1M+ patients):</strong><br>
+Instead of 1 database with 1M patients, have 100 databases with 10K each<br>
+Route based on clinic_id or patient_id hash<br><br>
+<strong>B. Read replicas:</strong><br>
+Main database: Writes only<br>
+2 read replicas: Dashboard queries (read-only) hit replicas<br>
+Eliminates bottleneck of all queries hitting one database<br><br>
+<strong>C. Microservices (if you grow to 10M+ patients):</strong><br>
+Instead of 1 monolith (API + screening + audit + payment):<br>
+- Screening service (isolated, scales independently)<br>
+- Patient service (CRUD operations)<br>
+- Audit service (logs, immutable)<br>
+- each has its own database<br><br>
+<strong>PERFORMANCE TARGETS AT SCALE:</strong><br>
+Goal: API response < 500ms, even at peak<br>
+1K concurrent users<br>
+P99 latency < 2 seconds<br><br>
+Achieved with:<br>
+✓ Database indexes<br>
+✓ Connection pooling<br>
+✓ Async screening pipeline<br>
+✓ Caching (Redis for reference data)<br>
+✓ CDN for static assets<br>
+✓ Rate limiting (prevent abuse)<br><br>
+<strong>Interview gold:</strong> "Scaling isn't one change. It's a series of changes: indexes first, then async/queuing, then sharding. Measure constantly. Fix the actual bottleneck, not imaginary ones. Most startups over-engineer before they have scale problems."`
+  },
+
+  failover: {
+    type: "interview",
+    title: "Database Failover Strategy",
+    question: "Your Railway PostgreSQL database crashes at 2 PM. Case managers can't access patient data. What's your disaster recovery plan?",
+    context: "High availability is critical for healthcare. Show you've thought about failure modes and recovery procedures.",
+    ideal: `<strong>THE DISASTER:</strong><br>
+Railway's PostgreSQL server has a hardware failure at 2 PM on Tuesday. Your backend can't connect:<br>
+OperationalError: could not translate host name "mindbridge-db.railway.app" to address<br><br>
+Result: MindBridge is completely down. Case managers can't log in, can't access patients. If a HIGH-RISK patient tries to get help, the system is offline.<br><br>
+This is unacceptable for healthcare. You need a failover strategy.<br><br>
+<strong>STRATEGY 1 — Automated Database Replication + Failover:</strong><br><br>
+<strong>Setup:</strong><br>
+Primary: mindbridge-db.railway.app (US-East)<br>
+Standby: mindbridge-db-backup.railway.app (US-West)<br><br>
+PostgreSQL replication: Primary streams all writes to Standby in real-time.<br>
+Standby is read-only but fully synced. Every INSERT/UPDATE on primary appears on standby within milliseconds.<br><br>
+<strong>When primary fails:</strong><br>
+1. Health check: Backend tries to connect to primary. Fails 3 times.<br>
+2. Automatic failover: Standby is promoted to primary (now accepts writes)<br>
+3. Application switches: Update application config: DATABASEUR = "mindbridge-db-backup.railway.app"<br>
+4. Resume operations: Case managers reconnect (maybe 10-second interruption)<br><br>
+Tools that automate this:<br>
+• Patroni (manages failover automatically)<br>
+• PgBouncer (connection pooling with failover built-in)<br>
+• Cloud provider's managed failover (Railway, Render, Digital Ocean provide this)<br><br>
+<strong>STRATEGY 2 — Active-Active (No downtime, more complex):</strong><br><br>
+Two PostgreSQL clusters, both accepting writes. Bidirectional replication.<br>
+If primary fails: DOMIcan already writing to secondary. Zero downtime.<br><br>
+Challenges: handling write conflicts (if both clusters receive the same INSERT simultaneously). Complex.<br><br>
+<strong>STRATEGY 3 — Backup & Restore (slower recovery):</strong><br><br>
+Take hourly backups of PostgreSQL to cloud storage (S3, Google Cloud Storage):<br>
+11 AM: Full backup (complete database snapshot)<br>
+2 PM: Database fails<br>
+2:05 PM: Database is restored from 11 AM snapshot<br>
+2:15 PM: Service restored (15-minute downtime)<br><br>
+Application data loss: 1 hour (1 PM-2 PM screzenings lost)<br><br>
+Better than nothing, but worse than replication.<br><br>
+<strong>MY RECOMMENDATION — Failover with Patroni (Middle ground):</strong><br><br>
+Using Patroni + PostgreSQL managed service on Railway/Render:<br><br>
+<strong>Backup strategy (RPO = Recovery Point Objective):</strong><br>
+- RPO: How much data can you afford to lose? Healthcare: <5 minutes<br>
+- Replication stream (synchronous): Primary waits for standby to confirm write before ACKing to app<br>
+- Result: Zero data loss from primary failure<br><br>
+<strong>Recovery time (RTO = Recovery Time Objective):</strong><br>
+- RTO: How long can you afford to be down? Healthcare: <10 minutes<br>
+- Automatic failover: Standby promoted within 1 minute<br>
+- Application reconnection: Connections reset, app reconnects within 2 minutes<br>
+- Result: ~3 minutes downtime<br><br>
+<strong>Implementation:</strong><br>
+PostgreSQL Primary (sync replication) → PostgreSQL Standby<br>
+<br>
+Connection string with automatic failover:<br>
+postgresql://user:pass@primary,backup/mindbridge?sslmode=require&target_session_attrs=read-write<br><br>
+This connection string tries primary first. If it fails, automatically connects to backup.<br><br>
+<strong>Verification & drills:</strong><br>
+Every quarter, simulate: Kill the primary database server. Confirm:<br>
+1. Standby was promoted (monitoring shows "now primary")<br>
+2. Application reconnected automatically<br>
+3. Case managers could access their data<br>
+4. No data loss since last transaction<br><br>
+Document exact steps taken + time to recovery. If it took 15 minutes manually, work on automation.<br><br>
+<strong>Bonus — Async Standby Replication for Different Regions:</strong><br><br>
+If you want geographic redundancy (survive full region outage):<br><br>
+Primary: US-East (Railway)<br>
+Standby Sync: US-East (same region, fast failover)<br>
+Standby Async: EU-West (different region, slower)<br><br>
+US-East fails: Standby Sync takes over (fast)<br>
+US-East + EU both fail: Business is over anyway (unlikely)<br><br>
+You generally don't use EU-West for normal failover (latency), but it's there as insurance.<br><br>
+<strong>Monitoring & Alerting:</strong><br>
+Continuous health check:<br>
+SELECT 1;  # Simple connectivity test, every 10 seconds<br><br>
+If 3 failed attempts → Alert ops immediately<br>
+If 10 failed attempts → Trigger automatic failover<br><br>
+Alert channels: Email + Slack + Page on-call engineer<br><br>
+<strong>Interview gold:</strong> "Healthcare systems can't be down. Plan for failure before it happens. Replication + automatic failover means case managers never notice a database failure. RPO < 5 min, RTO < 10 min. Drill it quarterly so you're confident it actually works."`
   }
 };
+
 
 let sessionCompleted = 0;
 let sessionRatings = [];

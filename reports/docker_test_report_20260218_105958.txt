@@ -1,0 +1,28 @@
+======================================================================
+MINDBRIDGE HEALTH AI - DOCKER DATABASE TEST REPORT
+======================================================================
+Generated: 2026-02-18 10:59:58
+Database: Docker PostgreSQL (localhost:5432)
+======================================================================
+
+PATIENT RISK SUMMARY
+----------------------------------------------------------------------
+
+Patient: John Doe
+  Risk Level: HIGH
+  Medication Adherence: 30.0%
+  Appointments Missed: 4
+
+Patient: Jane Smith
+  Risk Level: MEDIUM
+  Medication Adherence: 70.0%
+  Appointments Missed: 1
+
+Patient: Bob Johnson
+  Risk Level: LOW
+  Medication Adherence: 90.0%
+  Appointments Missed: 0
+
+----------------------------------------------------------------------
+Total Patients: 3
+======================================================================

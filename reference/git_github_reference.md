@@ -719,3 +719,20 @@ MindBridge-Health-AI/
 ├── .gitignore
 ├── docker-compose.yml
 └── README.md
+
+
+
+ALWAYS USE TO COMMIT CHANGES IN GITHUB
+
+cd "E:\MindBridge Health care"
+git add .
+git status
+git commit -m "Week 3 Day 11: Next.js frontend complete
+
+- Login page with MindBridge branding and Tailwind CSS
+- Patient dashboard with risk stratification and stats cards
+- Patient detail view with PHQ-9, GAD-7, AIMS scores
+- Dynamic routing with Next.js App Router
+- HIPAA compliance notices throughout
+- Claude AI summary integration (UI layer)"
+git push

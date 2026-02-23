@@ -1,0 +1,9 @@
+======================================================================
+MINDBRIDGE HEALTH AI - PRODUCTION DATABASE REPORT
+======================================================================
+Generated: 2026-02-19 12:56:08
+Data Source: Railway PostgreSQL (Production Cloud)
+Database Location: switchback.proxy.rlwy.net
+Report Type: Behavioral Health Risk Assessment
+======================================================================
+

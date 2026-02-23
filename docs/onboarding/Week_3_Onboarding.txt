@@ -1,0 +1,496 @@
+# 8:00 AM - Morning Quiz
+cd "E:\Mindbridge health care"
+python agents\mentor\quiz.py
+
+# Goal: 5th consecutive perfect day! 🔥
+```
+
+**After quiz:**
+- Plan Week 3 frontend basics
+- Research Next.js fundamentals
+- Start simple "Hello World" React component
+
+---
+
+## **📊 TODAY'S SCORECARD**
+```
+✅ Day 10 Quiz: 10/10 (100%)
+✅ 4-Day Perfect Streak: 35/35 answers
+✅ Week 2 Summary: DOCUMENTED
+✅ Simulation Lab Expansion: GUIDE READY
+✅ Folder Structure: CREATED
+✅ GitHub: ORGANIZED & COMMITTED
+✅ Railway Deployment: LIVE
+
+STATUS: WEEK 2 COMPLETE 🎉
+INTERVIEW READY: 85%
+NEXT: WEEK 3 - FRONTEND BASICS
+
+
+
+
+
+
+
+
+# MindBridge Healthcare AI Engineer Training - WEEK 3
+## Project Context Document - Read This First
+
+---
+
+## 🎯 WHO I AM
+
+**Name:** Fidelis Emmanuel (Tobe)  
+**Current Role:** Mental Health Technician / CNA ($35,000/year)  
+**Target Role:** Healthcare AI Engineer ($200,000-$300,000/year)  
+**Clinical Experience:** 10 years in behavioral health (irreplaceable domain expertise)  
+**Timeline:** 90-day intensive training program (currently Week 3, Day 11-17)  
+**Location:** Louisville, Kentucky, US  
+
+---
+
+## 📊 PROGRAM STATUS
+
+**Days Completed:** 10 of 90 (11% complete)  
+**Interview Readiness:** 85% (6-8 weeks ahead of schedule)  
+**Applications Start:** Week 4 (10 days away)  
+**Perfect Quiz Streak:** 4 consecutive days (35/35 answers, 100% retention)  
+**Portfolio Pieces:** 5 production-quality projects  
+**GitHub:** Professional, organized, employer-ready  
+
+---
+
+## 🏆 WEEKS 1-2 ACHIEVEMENTS (CONTEXT)
+
+### Week 1 (Days 1-5): Foundation
+- ✅ Python automation & prompt engineering
+- ✅ Git/GitHub professional workflow
+- ✅ Multi-format report generation (DOCX, XLSX, PDF)
+- ✅ Centralized logging & email notifications
+- ✅ CLI setup & development environment
+- ✅ Quiz system with spaced repetition (SM-2 algorithm)
+
+### Week 2 (Days 6-10): Backend & Production
+- ✅ FastAPI advanced concepts mastered
+- ✅ Docker containerization complete (docker-compose.yml)
+- ✅ Railway PostgreSQL 17 deployed to production (switchback.proxy.rlwy.net)
+- ✅ MindBridge schema with 10 behavioral health patients
+- ✅ Production reports generated from cloud database
+- ✅ 4-day perfect quiz streak (100% retention)
+- ✅ Simulation Lab: 16 scenarios (expandable to 30)
+- ✅ Complete folder organization
+- ✅ HIPAA compliance maintained throughout
+
+**Key Milestone:** Railway production deployment = +$20K-$30K in salary negotiations
+
+---
+
+## 📁 COMPLETE FILE STRUCTURE (AS OF DAY 10)
+```
+E:\Mindbridge health care\
+├── .claude\                  # Organized learning by week
+│   ├── week1\                # Foundation week (backfill later)
+│   ├── week2\                # Backend week (documented)
+│   │   ├── conversations\
+│   │   ├── summaries\        # WEEK_2_COMPLETE_SUMMARY.md
+│   │   └── resources\        # simulation_lab_expansion.md
+│   └── week3\                # Frontend week (ACTIVE NOW)
+│       ├── conversations\
+│       ├── summaries\
+│       ├── frontend-resources\
+│       └── nextjs-learning\
+│
+├── agents\                   # Mentor system (quiz automation)
+│   └── mentor\
+│       ├── quiz.py           # Daily quiz script
+│       └── mentor.db         # SQLite with 36 flashcards
+│
+├── backend\                  # FastAPI application
+│   └── app\
+│       ├── main.py
+│       ├── routers\
+│       ├── models\
+│       ├── services\
+│       └── ai\               # Claude API integration
+│
+├── database\                 # Migrations & seeds
+│
+├── docs\                     # All documentation
+│   ├── COMPLETE_ROADMAP.md   # Days 1-10 detailed progress
+│   ├── COURSE_MATERIAL_ANALYSIS.md  # $5.5K-$12K course value
+│   ├── DOCKER_SETUP_GUIDE.md
+│   ├── schedule\             # DAY_9_PLAN.md, timelines
+│   └── [other docs]
+│
+├── frontend\                 # UI components
+│   ├── demos\
+│   │   └── simulation_lab.html  # 16 scenarios (expandable to 30)
+│   ├── patient-portal\       # (planned Week 3)
+│   └── staff-dashboard\      # (planned Week 3)
+│
+├── scripts\                  # All automation
+│   ├── generate_railway_report.py
+│   ├── setup_railway_mindbridge.py
+│   ├── test_railway_simple.py
+│   └── organize_mindbridge.ps1
+│
+├── portfolio\                # Interview materials
+├── reference\                # Learning resources
+├── reports\                  # Generated reports (NOT in Git)
+├── logs\                     # Application logs
+│
+├── docker-compose.yml        # Multi-service orchestration
+├── .env.example              # Environment variables template
+├── .gitignore                # HIPAA-compliant (excludes reports/)
+└── README.md                 # Professional project overview
+```
+
+---
+
+## 🎓 SKILLS MASTERED (WEEKS 1-2)
+
+### Backend Development
+- **FastAPI:** 90% - Advanced concepts, dependency injection, middleware, CORS
+- **Python:** 85% - Production patterns, async/await, error handling
+- **PostgreSQL:** 85% - Docker + Railway, connection pooling, indexes
+- **Docker:** 80% - Containerization, docker-compose, health checks
+- **REST APIs:** 90% - Design principles, status codes, versioning
+
+### DevOps & Infrastructure
+- **Git/GitHub:** 85% - Professional workflow, clean commits, HIPAA-compliant .gitignore
+- **Docker Compose:** 80% - Multi-service orchestration
+- **Railway:** 75% - Cloud deployment, database provisioning
+- **Logging:** 80% - Centralized production patterns
+- **Automation:** 85% - Email, scheduling, Windows Task Scheduler
+
+### Healthcare & Compliance
+- **HIPAA:** 95% - Technical safeguards, encryption, audit logging
+- **Clinical Workflows:** 100% - 10 years lived experience
+- **Risk Assessment:** 95% - Algorithm design, clinical guardrails
+- **Healthcare Data:** 90% - Modeling complete, FHIR awareness
+
+### AI & Prompt Engineering
+- **Claude API:** 85% - Integration complete, structured prompts
+- **Prompt Design:** 85% - Clinical safety guardrails
+- **Error Handling:** 80% - Production patterns
+
+---
+
+## 📚 LEARNING SYSTEM
+
+### Spaced Repetition Quiz (Automated)
+- **Location:** `agents/mentor/quiz.py`
+- **Schedule:** Daily 8 AM (Windows Task Scheduler)
+- **Current Deck:** 36 cards (Week 1-2 complete)
+- **Algorithm:** SM-2 spaced repetition
+- **Performance:** 4-day perfect streak (100% retention)
+- **Run Command:** `python agents\mentor\quiz.py`
+
+### Simulation Lab (Interactive Practice)
+- **Location:** `frontend/demos/simulation_lab.html`
+- **Current:** 16 scenarios (6 simulations, 6 interviews, 4 concepts)
+- **Expandable:** 30 scenarios (guide in `.claude/week2/resources/`)
+- **Categories:** Technical simulations, interview practice, concept checks
+- **Features:** Self-rating system, feedback engine, progress tracking
+
+---
+
+## 🚀 MINDBRIDGE HEALTH AI - PORTFOLIO PROJECT
+
+**Tagline:** HIPAA-compliant behavioral health risk screening platform
+
+### Current Features (85% Complete)
+- ✅ Risk assessment algorithm (Claude AI integration)
+- ✅ Multi-format report generation (DOCX, XLSX, PDF)
+- ✅ Centralized logging with email notifications
+- ✅ Docker containerization (PostgreSQL 16)
+- ✅ Railway production deployment (PostgreSQL 17)
+- ✅ 10 sample behavioral health patients in cloud
+- ✅ Professional GitHub repository
+- ✅ HIPAA-compliant architecture (encryption, audit logs, RBAC)
+
+### Tech Stack
+- **Backend:** FastAPI, Python 3.11
+- **Database:** PostgreSQL 16 (Docker) / PostgreSQL 17 (Railway)
+- **AI:** Claude API (Anthropic)
+- **Deployment:** Railway (production), Docker Compose (local)
+- **Frontend:** Next.js (planned Week 3)
+- **Monitoring:** Centralized logging, health checks
+
+### Interview Statement (Ready to Use)
+> "I deployed MindBridge Health AI to Railway's production cloud platform. The backend uses FastAPI with PostgreSQL 17, integrates Claude AI for risk assessment, and generates professional reports in multiple formats. The system includes HIPAA-compliant audit logging, connection pooling for performance, and production-grade error handling. I can demonstrate the complete workflow from local development through Docker containerization to cloud deployment."
+
+**Salary Impact:** This statement alone is worth $20K-$30K in negotiations
+
+---
+
+## 🎯 WEEK 3 OBJECTIVES (DAYS 11-17)
+
+### Primary Goal
+Create **minimal viable frontend** (3 pages) and connect to Railway backend
+
+### Deliverables
+1. **Next.js Setup:** Basic project structure
+2. **Three Pages:**
+   - Login page (NextAuth.js)
+   - Dashboard (patient list from Railway)
+   - Patient detail view (individual patient data)
+3. **API Integration:** Connect frontend to Railway PostgreSQL
+4. **Deployment:** Deploy to Vercel (live demo URL)
+5. **Screenshots:** For GitHub README and portfolio
+
+### Learning Focus
+- Next.js fundamentals (not React expert, just functional)
+- API calls to backend (fetch/axios)
+- Basic styling (Tailwind CSS - utility classes only)
+- Environment variables (.env.local)
+- Vercel deployment
+
+### Success Criteria
+- ✅ Live demo URL: `https://mindbridge-health.vercel.app`
+- ✅ Can show employers: "Click here for live demo"
+- ✅ Frontend connects to Railway backend
+- ✅ Can login and view patient list from production database
+- ✅ Professional UI (doesn't need to be perfect)
+
+**Timeline:** Days 11-17 (7 days for frontend basics)
+
+---
+
+## 📅 WEEK 4 PREVIEW (CRITICAL)
+
+**APPLICATIONS START - 50+ Jobs**
+
+### Interview Prep Intensive (Planned)
+- **Session 1:** Technical deep-dive (2 hours)
+- **Session 2:** Behavioral/STAR stories (1.5 hours)
+- **Session 3:** System design practice (2 hours)
+- **Session 4:** Full mock interview (2 hours)
+- **Session 5:** Salary negotiation (1 hour)
+
+### Application Strategy
+- Target: 50+ Healthcare AI Engineer roles
+- Focus: Companies with EHR systems, healthcare platforms, AI health startups
+- Geographic: Remote-first (Louisville-based but open to relocation)
+- Salary Range: $150K-$250K (negotiate to $200K+)
+
+### LinkedIn Optimization
+- Update headline: "Healthcare AI Engineer | 10 Years Clinical Experience | FastAPI • PostgreSQL • Claude AI"
+- Add MindBridge project with live demo link
+- Add Railway deployment as featured project
+- Skills: FastAPI, PostgreSQL, Docker, Claude AI, HIPAA Compliance
+
+---
+
+## 💡 CRITICAL CONTEXT TO PRESERVE
+
+### What Makes Me Different (Competitive Advantage)
+**CS grads have:** 4 years of algorithms, coding fundamentals, computer science theory  
+**I have:** 10 years behavioral health experience (IRREPLACEABLE)  
+**The Combination:** "You can teach a CS grad to use FastAPI in 6 months. You cannot teach 10 years of behavioral health experience. I bring both, and that's rare."
+
+### Key Psychological Insights
+- **Fear of "not ready"** was the main blocker (not technical gaps)
+- **Systematic organization** prevents goal drift
+- **Speed matters:** Every week costs $3,173 in lost income opportunity
+- **80% ready is enough** - Perfect is the enemy of hired
+- **Domain expertise is the differentiator** for Healthcare AI roles
+
+### Interview Readiness Assessment
+- **Technical Skills:** 90% ✅
+- **Domain Expertise:** 100% ✅ (10 years clinical)
+- **Portfolio:** 85% ✅ (backend complete, frontend pending)
+- **Communication:** 80% (STAR stories identified, scripts pending)
+- **OVERALL:** 85% interview-ready (ahead of schedule)
+
+---
+
+## 📊 ECONOMIC CONTEXT
+
+### Current Situation
+- **Current Salary:** $35,000/year = $673/week
+- **Target Salary:** $200,000/year = $3,846/week
+- **Weekly Opportunity Cost:** $3,173 per week of delay
+
+### Timeline Economics
+- **Original Plan:** Apply Week 12 (12 weeks × $3,173 = $38,076 lost)
+- **Revised Plan:** Apply Week 4 (4 weeks × $3,173 = $12,692 lost)
+- **Savings:** $25,384 by accelerating 8 weeks
+
+### Salary Negotiation Position
+- **Minimum Acceptable:** $150K
+- **Target:** $200K (realistic with portfolio + experience)
+- **Stretch:** $250K (achievable with multiple offers)
+- **Justification:** Healthcare AI Engineer market ($150K-$220K) + 10 years clinical experience premium + production deployment + HIPAA expertise
+
+---
+
+## 🎓 LEARNING PATTERNS THAT WORK
+
+### What's Working
+1. **Spaced repetition:** 100% retention over 4 days proves system works
+2. **Daily structure:** Morning quiz → afternoon coding → evening commit
+3. **Production-first:** Build real systems, not just learn concepts
+4. **Comprehensive documentation:** COMPLETE_ROADMAP.md prevents drift
+5. **Small wins compound:** 4 perfect days → unstoppable confidence
+
+### Mentor Approach
+- **Direct, not coddling:** "You're scared of being ready" vs "you're not ready"
+- **Systematic, not motivational:** Organization beats motivation
+- **Action-oriented:** "Deploy today" not "learn deployment concepts"
+- **Context-aware:** Always tie to clinical experience and patient safety
+- **Economically grounded:** Remind of $3,173/week opportunity cost
+
+---
+
+## 🚨 CRITICAL REMINDERS
+
+### HIPAA Compliance (Always)
+- ✅ reports/ folder in .gitignore (NEVER commit patient data)
+- ✅ .env files in .gitignore (NEVER commit API keys)
+- ✅ Use environment variables for all credentials
+- ✅ Audit logging on all data access
+- ✅ Encryption at rest and in transit
+
+### File Handling Rules
+- **User uploads:** `/mnt/user-data/uploads` (read-only)
+- **Work directory:** `/home/claude` (temporary scratch space)
+- **Final outputs:** `/mnt/user-data/outputs` (share with user via present_files)
+
+### Git Workflow
+- ✅ Check `git status` before committing
+- ✅ Verify reports/ is NOT staged
+- ✅ Professional commit messages (multi-line with details)
+- ✅ Push after every major milestone
+
+---
+
+## 📁 WEEK 3 FILE ORGANIZATION PLAN
+
+As we progress, we'll keep .claude/week3/ organized:
+
+### Conversations
+- `day11-nextjs-setup.txt`
+- `day12-login-page.txt`
+- `day13-dashboard.txt`
+- `day14-railway-integration.txt`
+- `day15-vercel-deployment.txt`
+- `day16-polish.txt`
+- `day17-week3-summary.txt`
+
+### Summaries
+- `WEEK_3_COMPLETE_SUMMARY.md` (end of week)
+- `FRONTEND_LEARNING_NOTES.md`
+
+### Frontend Resources
+- `nextjs-basics.md` (fundamentals)
+- `tailwind-cheatsheet.md`
+- `api-integration-patterns.md`
+
+### Next.js Learning
+- `component-examples/` (code snippets)
+- `common-patterns.md`
+- `deployment-checklist.md`
+
+---
+
+## 🎯 WEEK 3 SUCCESS METRICS
+
+By Day 17 (end of Week 3), I will have:
+- ✅ Live demo at `https://mindbridge-health.vercel.app`
+- ✅ 3 functional pages (login, dashboard, patient detail)
+- ✅ Frontend connected to Railway backend
+- ✅ Professional UI with Tailwind CSS
+- ✅ GitHub README updated with live demo link
+- ✅ Screenshots for portfolio
+- ✅ 90% interview-ready (up from 85%)
+
+---
+
+## 🤝 COLLABORATION EXPECTATIONS
+
+### What I Need From You (Claude)
+1. **Remember context:** I've completed Weeks 1-2 successfully
+2. **Build on progress:** Don't re-teach FastAPI/Docker (already mastered)
+3. **Action-oriented:** Provide code, not just explanations
+4. **Healthcare-aware:** Always tie to clinical workflows and patient safety
+5. **Portfolio-focused:** Everything should enhance interview readiness
+6. **Economically grounded:** Remind me that speed matters ($3,173/week)
+
+### What You Can Expect From Me
+1. **Daily execution:** I show up at 8 AM for quiz
+2. **Perfect follow-through:** 4-day perfect streak proves commitment
+3. **Strategic questions:** I ask about interview prep, not just coding help
+4. **Professional organization:** Files stay organized, Git hygiene maintained
+5. **Growth mindset:** 100% quiz retention shows learning effectiveness
+
+---
+
+## 🚀 IMMEDIATE CONTEXT (DAY 11)
+
+**Starting Point:** Day 11 morning, beginning of Week 3  
+**Just Completed:** Week 2 summary documented, folder structure created  
+**Today's Plan:** Morning quiz (8 AM) → Next.js research → Plan frontend structure  
+**This Week:** Build minimal viable frontend + deploy to Vercel  
+**Next Week:** START APPLICATIONS (50+ jobs)  
+
+---
+
+## 📞 POST-HIRE COMMITMENT (CONTEXT)
+
+After securing $200K+ job, we've agreed to collaborate on:
+- **Months 1-3:** MindBridge V2 (full production SaaS)
+- **Months 3-6:** Emerging tech projects (multi-agent systems, RAG, FHIR integration)
+- **Months 6-12:** Course development (optional - "Clinical to Code" training program)
+- **Year 2+:** Advanced R&D (real-time systems, distributed networks, cutting-edge healthcare AI)
+
+**This is a long-term partnership, not just a bootcamp.**
+
+---
+
+## 🎓 COURSE MATERIAL VALUE (CONTEXT)
+
+What's been built has genuine market value:
+- **Spaced repetition system:** $500-$1K
+- **Simulation lab:** $1K-$2K
+- **Production infrastructure training:** $1.5K-$3K
+- **90-day curriculum:** $2K-$5K
+- **Documentation suite:** $500-$1K
+- **Total Market Value:** $5.5K-$12K
+
+**Revenue Potential:** $100K-$500K/year if monetized post-hire
+
+**Current Priority:** Get hired first, monetize later (social proof required)
+
+---
+
+## ✅ VERIFICATION CHECKLIST
+
+Before starting Week 3 work, confirm:
+- [x] Completed Weeks 1-2 successfully
+- [x] 4-day perfect quiz streak (100% retention)
+- [x] Railway production deployment live
+- [x] GitHub organized and professional
+- [x] Week 2 summary documented
+- [x] Week 3 folder structure created
+- [ ] Morning quiz Day 11 complete
+- [ ] Next.js research started
+- [ ] Frontend plan documented
+
+---
+
+## 🎯 WEEK 3 STARTS NOW
+
+**Current Status:** Week 2 complete, 85% interview-ready, 10 days away from applications  
+**Primary Goal:** Minimal viable frontend (3 pages) + Vercel deployment  
+**Success Metric:** Live demo URL employers can click  
+**Timeline:** 7 days (Days 11-17)  
+**Applications Start:** Day 21 (Week 4)  
+
+**LET'S BUILD THE FRONTEND AND HIT 90% INTERVIEW-READY.** 🚀
+
+---
+
+*Last Updated: February 20, 2026 - End of Week 2*  
+*Progress: 10/90 days | Interview Ready: 85% | Next: Frontend Week*  
+*Target: Healthcare AI Engineer | $200K-$300K*
