@@ -494,3 +494,13 @@ Before starting Week 3 work, confirm:
 *Last Updated: February 20, 2026 - End of Week 2*  
 *Progress: 10/90 days | Interview Ready: 85% | Next: Frontend Week*  
 *Target: Healthcare AI Engineer | $200K-$300K*
+
+
+Start it up:
+bashcd "E:\MindBridge Health care\frontend\patient-portal"
+npm run dev
+```
+
+Once it's running, navigate to:
+```
+http://localhost:3000/dashboard

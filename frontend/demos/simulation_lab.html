@@ -471,6 +471,20 @@
           <div class="tag tag-sim">Simulation</div>
         </span>
       </button>
+      <button class="scenario-btn" onclick="loadScenario('econnrefused')" id="btn-econnrefused">
+        <span class="icon">🔌</span>
+        <span class="info">
+          <div class="name">ECONNREFUSED Debug</div>
+          <div class="tag tag-sim">Simulation</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('gitguardian')" id="btn-gitguardian">
+        <span class="icon">🚨</span>
+        <span class="info">
+          <div class="name">Exposed Credentials Alert</div>
+          <div class="tag tag-sim">Simulation</div>
+        </span>
+      </button>
     </div>
 
     <div class="sidebar-section">
@@ -573,6 +587,13 @@
           <div class="tag tag-int">Interview</div>
         </span>
       </button>
+      <button class="scenario-btn" onclick="loadScenario('fullstack_connect')" id="btn-fullstack_connect">
+        <span class="icon">🔗</span>
+        <span class="info">
+          <div class="name">Connect Frontend to Database</div>
+          <div class="tag tag-int">Interview</div>
+        </span>
+      </button>
     </div>
 
     <div class="sidebar-section">
@@ -637,6 +658,13 @@
         <span class="icon">🗺️</span>
         <span class="info">
           <div class="name">MindBridge End-to-End</div>
+          <div class="tag tag-con">Concept</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('env_vars')" id="btn-env_vars">
+        <span class="icon">🔐</span>
+        <span class="info">
+          <div class="name">Environment Variables</div>
           <div class="tag tag-con">Concept</div>
         </span>
       </button>
@@ -743,7 +771,7 @@
       </div>
       <div class="stat-divider"></div>
       <div class="stat">
-        <div class="stat-value" style="color:var(--accent)">38</div>
+        <div class="stat-value" style="color:var(--accent)">42</div>
         <div class="stat-label">Total Scenarios</div>
       </div>
       <div class="stat-divider"></div>
@@ -2143,6 +2171,155 @@ Case manager clicks "Generate Report." Python-docx creates Word document. openpy
 <strong>THE TECH STACK SUMMARY:</strong><br>
 Frontend: Next.js 14 (Vercel) → FastAPI backend (Railway) → PostgreSQL 17 (Railway) → Claude AI (Anthropic) → Multi-format reports<br><br>
 <strong>Interview gold:</strong> "I built every layer of this system, from database schema to frontend components. The domain expertise from 10 years in behavioral health shaped every architectural decision — the alert thresholds, the HIPAA audit patterns, the report formats. That's not something you get from a computer science degree."`
+  },
+
+  econnrefused: {
+    type: "simulation",
+    title: "Debug ECONNREFUSED Error",
+    question: "Your Next.js API route returns: 'AggregateError: ECONNREFUSED'. The database credentials look correct. Walk me through your debugging process step by step.",
+    context: "This is a real error you encountered today. Own it — you know exactly what caused it and how to fix it.",
+    ideal: `<strong>ECONNREFUSED means:</strong><br>
+The connection was actively refused by the target server. Your code reached the right address but nothing answered. Not a credentials problem — a networking problem.<br><br>
+<strong>STEP 1 — Check the URL format:</strong><br>
+Print the first 30 characters of the database URL:<br>
+console.log("DB URL prefix:", process.env.DATABASE_URL?.substring(0, 30));<br><br>
+This reveals if the URL is even being read, and what host it's pointing to.<br><br>
+<strong>STEP 2 — Identify internal vs public URL:</strong><br>
+Two types of Railway database URLs:<br>
+- Internal: postgres.railway.internal:5432 — ONLY works inside Railway's network<br>
+- Public: switchback.proxy.rlwy.net:56330 — works from anywhere<br><br>
+If you're running locally or on Vercel, you MUST use the public URL. The internal URL is for Railway service-to-service communication only.<br><br>
+<strong>STEP 3 — Check .env.local location:</strong><br>
+Next.js only reads .env.local from the project root — the same folder as package.json.<br>
+If .env.local is in the wrong directory (e.g., the repo root instead of frontend/patient-portal), Next.js never reads it. The environment variable is undefined. The connection fails.<br><br>
+<strong>STEP 4 — Restart the dev server:</strong><br>
+Next.js reads .env.local ONLY on startup. If you change the file while the server is running, the old value is still in memory.<br>
+Fix: Ctrl+C → npm run dev — always restart after changing .env.local.<br><br>
+<strong>STEP 5 — Verify SSL config:</strong><br>
+Railway requires SSL. Add to Pool config:<br>
+ssl: { rejectUnauthorized: false }<br><br>
+Without this, Railway rejects the connection even with correct credentials.<br><br>
+<strong>Root causes in order of likelihood:</strong><br>
+1. Wrong URL (internal vs public) — most common<br>
+2. .env.local in wrong directory<br>
+3. Dev server not restarted after .env.local change<br>
+4. Missing SSL config<br><br>
+<strong>Interview gold:</strong> "ECONNREFUSED is a network error, not a credentials error. The first question is always: can this machine reach that host? Internal Railway URLs are invisible from outside Railway's network — that's by design for security."`
+  },
+
+  gitguardian: {
+    type: "simulation",
+    title: "GitGuardian: Exposed Credentials Alert",
+    question: "You receive an email from GitGuardian: 'PostgreSQL URI exposed in your GitHub repository fidelis-emmanuel/MindBridge-Health-AI'. The repo was made public yesterday. What do you do in the next 30 minutes?",
+    context: "This happened to you today. You handled it correctly. Now explain it as if teaching a junior developer.",
+    ideal: `<strong>STEP 1 — Assess severity immediately (2 minutes):</strong><br>
+How long was the repo public? The shorter the window, the lower the risk.<br>
+What was exposed? PostgreSQL connection string = full database access including all patient data.<br>
+Is the database in production with real patient data? If yes, treat as critical breach.<br><br>
+<strong>STEP 2 — Rotate the credential immediately (5 minutes):</strong><br>
+Go to Railway → Postgres → Database tab → Config → Regenerate Password.<br>
+This invalidates the exposed password instantly — even if someone already copied it, it no longer works.<br>
+Do this BEFORE anything else. Rotation is the fastest way to close the security window.<br><br>
+<strong>STEP 3 — Remove from code (10 minutes):</strong><br>
+Find every file with the hardcoded URL:<br>
+git grep -r "postgresql://" ec9c774<br><br>
+Replace hardcoded URL with environment variable:<br>
+# REMOVE:<br>
+DATABASE_PUBLIC_URL = "postgresql://postgres:PASSWORD@host:port/railway"<br>
+# REPLACE WITH:<br>
+import os<br>
+DATABASE_PUBLIC_URL = os.environ.get("DATABASE_PUBLIC_URL")<br><br>
+Commit and push immediately:<br>
+git commit -m "Security: Remove hardcoded database credentials"<br>
+git push<br><br>
+<strong>STEP 4 — Clean git history (15 minutes):</strong><br>
+The credential is now gone from current code but still visible in old commits. Anyone can run git log and find it.<br>
+pip install git-filter-repo<br>
+git filter-repo --path scripts/generate_railway_report.py --invert-paths<br>
+git push origin main --force<br><br>
+Force push rewrites history. The old commits with credentials are permanently removed from GitHub.<br><br>
+<strong>STEP 5 — Verify (5 minutes):</strong><br>
+Try connecting with the OLD password. Should fail with authentication error.<br>
+Check GitHub — search the repo for the old password string. Should return zero results.<br><br>
+<strong>HIPAA implications:</strong><br>
+If this were a production database with real patient PHI:<br>
+- Document the incident: what was exposed, when, for how long<br>
+- Assess if PHI was accessed (check database access logs)<br>
+- If PHI was accessed by unauthorized party: 72-hour breach notification rule applies<br>
+- Notify patients and HHS within 72 hours<br><br>
+<strong>Prevention going forward:</strong><br>
+- Never hardcode credentials — always os.environ.get()<br>
+- Add .env* to .gitignore before first commit<br>
+- Use git-secrets or similar pre-commit hooks to block credential commits<br>
+- Review .gitignore before making any repo public<br><br>
+<strong>Interview gold:</strong> "I handled a real credential exposure during my MindBridge project. Detected by GitGuardian, rotated within 5 minutes, removed from code, cleaned git history with git-filter-repo. Total resolution: under 30 minutes. The key is rotating first — that closes the security window while you fix the code."`
+  },
+
+  fullstack_connect: {
+    type: "interview",
+    title: "Walk Through Connecting Frontend to Database",
+    question: "Walk me through how you connected the MindBridge Next.js frontend to the Railway PostgreSQL database. What decisions did you make and why?",
+    context: "This is a Day 12 achievement. You built the full connection today. Own every architectural decision.",
+    ideal: `<strong>THE ARCHITECTURE DECISION:</strong><br>
+Two options to connect Next.js to PostgreSQL:<br>
+Option A: Next.js → FastAPI backend → PostgreSQL (traditional full-stack)<br>
+Option B: Next.js Server Component → PostgreSQL directly (simpler for portfolio)<br><br>
+I chose Option B because FastAPI wasn't deployed on Railway yet — only the database was. Server Components can securely query PostgreSQL directly because they run on the server, never in the browser. No credentials are exposed to the client.<br><br>
+<strong>STEP 1 — Install PostgreSQL client:</strong><br>
+npm install pg && npm install --save-dev @types/pg<br>
+The pg package gives Next.js the ability to speak PostgreSQL protocol directly.<br><br>
+<strong>STEP 2 — Create the API route:</strong><br>
+app/api/patients/route.ts — a Next.js API route that queries Railway and returns JSON.<br>
+Used Pool with ssl: { rejectUnauthorized: false } for Railway's SSL requirement.<br><br>
+<strong>STEP 3 — Environment variables (the HIPAA lesson):</strong><br>
+Created .env.local in the patient-portal directory (not the repo root — that was the first bug).<br>
+Added DATABASE_URL with the Railway PUBLIC URL (not the internal URL — that was the second bug).<br>
+Restarted the dev server after changing .env.local — Next.js only reads it on startup.<br><br>
+<strong>STEP 4 — Move to Server Component:</strong><br>
+The API route used localhost:3000 which doesn't exist on Vercel. Fixed by querying PostgreSQL directly in the Server Component — no fetch call needed. Server Components run on the server, so they connect directly to the database.<br><br>
+<strong>STEP 5 — Deploy to Vercel:</strong><br>
+Added DATABASE_URL to Vercel's Environment Variables dashboard. Redeployed. Live dashboard now shows real Railway patients.<br><br>
+<strong>Result:</strong><br>
+mind-bridge-health-ai.vercel.app/dashboard pulls live patient data from Railway PostgreSQL. The full stack is connected: Browser → Vercel → Next.js Server Component → Railway PostgreSQL.<br><br>
+<strong>Interview gold:</strong> "The decision to query PostgreSQL directly in Server Components is only safe because Server Components never run in the browser. The DATABASE_URL secret never leaves the server. That's the security model — and it's why defaulting to Server Components is the right architectural choice."`
+  },
+
+  env_vars: {
+    type: "concept",
+    title: "Environment Variables — Local vs Production",
+    question: "Explain the difference between .env.local, environment variables in Vercel, and hardcoded credentials. Why does each exist and when do you use each?",
+    context: "You learned this the hard way today. Security and deployment concepts combined.",
+    ideal: `<strong>THE SPECTRUM (least to most secure):</strong><br><br>
+<strong>WORST — Hardcoded in source code:</strong><br>
+DATABASE_URL = "postgresql://postgres:PASSWORD@host/db"<br><br>
+Problem: Committed to git. If repo is ever public (accidentally or intentionally), credentials are exposed. GitGuardian detected this in MindBridge within 24 hours of the repo going public.<br>
+Never do this for any real credentials.<br><br>
+<strong>GOOD — .env.local (local development only):</strong><br>
+File named .env.local in your project directory.<br>
+Add .env* to .gitignore — file is never committed to git.<br>
+Next.js reads it automatically on startup (not hot-reloaded — must restart server).<br>
+Access in code: process.env.DATABASE_URL<br><br>
+Rules:<br>
+- Must be in the same directory as package.json<br>
+- Never commit it<br>
+- Only works locally — Vercel cannot read your local files<br>
+- Restart dev server after every change<br><br>
+<strong>PRODUCTION — Environment variables in Vercel dashboard:</strong><br>
+Go to Vercel → Project → Settings → Environment Variables.<br>
+Add DATABASE_URL with the real value.<br>
+Vercel bakes this into the build at deploy time.<br>
+Access in code: same — process.env.DATABASE_URL<br><br>
+Key insight: The code is identical whether running locally or on Vercel. The ENVIRONMENT provides the right value in each context. That's the entire point of environment variables.<br><br>
+<strong>NEXT_PUBLIC_ prefix (special case):</strong><br>
+Variables without NEXT_PUBLIC_ are server-only — never sent to the browser.<br>
+Variables WITH NEXT_PUBLIC_ are included in the browser bundle — visible to anyone.<br>
+DATABASE_URL = server only (correct — never expose database credentials to browser)<br>
+NEXT_PUBLIC_API_URL = browser-safe (public API URLs are fine)<br><br>
+<strong>The .env.local location bug (Day 12 lesson):</strong><br>
+Repo root: E:\\MindBridge Health Care\\.env.local ← Next.js CANNOT see this<br>
+Project root: E:\\MindBridge Health Care\\frontend\\patient-portal\\.env.local ← Next.js reads this<br><br>
+Next.js looks for .env.local relative to the directory where package.json lives. Always put it there.<br><br>
+<strong>Interview gold:</strong> "Environment variables solve two problems: security (credentials not in code) and flexibility (different values in dev vs production without changing code). The pattern is always the same: os.environ.get() in Python, process.env.VARIABLE in Next.js. The deployment platform provides the actual values."`
   }
 };
 
