@@ -14,16 +14,21 @@ db_pool = None
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global db_pool
-    db_pool = await asyncpg.create_pool(
-        DATABASE_URL,
-        min_size=2,
-        max_size=10,
-        ssl="require"
-    )
-    print("✅ Database pool created")
+    try:
+        db_pool = await asyncpg.create_pool(
+            DATABASE_URL,
+            min_size=2,
+            max_size=10,
+            ssl="require"
+        )
+        print("✅ Database pool created")
+    except Exception as e:
+        print(f"⚠️ Database pool failed: {e}")
+        db_pool = None
     yield
-    await db_pool.close()
-    print("✅ Database pool closed")
+    if db_pool:
+        await db_pool.close()
+        print("✅ Database pool closed")
 
 app = FastAPI(
     title="MindBridge Health AI",
@@ -47,7 +52,8 @@ async def health_check():
     return {
         "status": "healthy",
         "service": "MindBridge Health AI",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "database": "connected" if db_pool else "unavailable"
     }
 
 @app.get("/api/patients")
