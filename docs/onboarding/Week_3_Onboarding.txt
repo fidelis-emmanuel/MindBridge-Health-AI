@@ -504,3 +504,15 @@ npm run dev
 Once it's running, navigate to:
 ```
 http://localhost:3000/dashboard
+
+
+
+cd "E:\MindBridge Health care"
+git add .
+git commit -m "Day 14: FastAPI backend with patients endpoints and asyncpg"
+git push
+```
+
+Railway will auto-detect the push and redeploy. Watch the **Deployments** tab in Railway — wait for the green checkmark, then test:
+```
+https://mindbridge-health-ai-production.up.railway.app/health
