@@ -1,36 +1,216 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧠 MindBridge Health AI
 
-## Getting Started
+> HIPAA-Compliant Behavioral Health Platform — Full-Stack Healthcare AI Application
 
-First, run the development server:
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?style=for-the-badge&logo=vercel)](https://mind-bridge-health-ai.vercel.app)
+[![API Status](https://img.shields.io/badge/API-Railway-purple?style=for-the-badge&logo=railway)](https://mindbridge-health-ai-production.up.railway.app/health)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 🔴 Live Demo
+
+| Service  | URL                                                                                                             | Status  |
+| -------- | --------------------------------------------------------------------------------------------------------------- | ------- |
+| Frontend | [mind-bridge-health-ai.vercel.app](https://mind-bridge-health-ai.vercel.app)                                    | ✅ Live |
+| API      | [mindbridge-health-ai-production.up.railway.app](https://mindbridge-health-ai-production.up.railway.app/health) | ✅ Live |
+| Database | Railway PostgreSQL                                                                                              | ✅ Live |
+
+**Demo credentials:**
+
+- Email: `demo@mindbridge.health`
+- Password: `MindBridge2026!`
+
+---
+
+## 🏗️ Architecture
+
+```
+Browser
+   ↓
+Vercel (Next.js 16 — Global CDN)
+   ↓
+Railway (FastAPI — REST API + AI Processing)
+   ↓
+Railway (PostgreSQL — Patient Database)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Data flow:**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clinician logs in via NextAuth.js (JWT, 8-hour session)
+2. Next.js middleware blocks unauthenticated access at the edge
+3. Dashboard loads patient data from Railway PostgreSQL
+4. FastAPI backend serves REST endpoints with asyncpg connection pooling
+5. All connections encrypted via SSL/TLS
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## ⚙️ Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+### Frontend
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Technology   | Purpose                         |
+| ------------ | ------------------------------- |
+| Next.js 16   | React framework with App Router |
+| TypeScript   | Type safety                     |
+| Tailwind CSS | Styling                         |
+| NextAuth.js  | Authentication + JWT sessions   |
+| Vercel       | Deployment + CDN                |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Backend
 
-## Deploy on Vercel
+| Technology  | Purpose                        |
+| ----------- | ------------------------------ |
+| FastAPI     | Async REST API framework       |
+| asyncpg     | Non-blocking PostgreSQL driver |
+| Pydantic    | Data validation                |
+| Python 3.11 | Runtime                        |
+| Railway     | Cloud deployment               |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Database
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Technology | Purpose               |
+| ---------- | --------------------- |
+| PostgreSQL | Primary database      |
+| Railway    | Managed hosting       |
+| SSL/TLS    | Encrypted connections |
+
+---
+
+## 🔐 HIPAA Compliance Features
+
+- **Authentication** — JWT sessions with 8-hour expiry (clinical shift alignment)
+- **Route Protection** — Next.js middleware blocks unauthenticated access
+- **Encryption in Transit** — TLS 1.3 for all connections, SSL for database
+- **Audit Logging** — All login events tracked (architecture ready)
+- **Session Management** — Automatic logoff per §164.312(a)(2)(iii)
+- **Unique User IDs** — Per-user JWT tokens per §164.312(a)(2)(i)
+- **Demo Data Only** — No real PHI stored or displayed
+
+---
+
+## 🚀 API Endpoints
+
+```
+GET  /health                    — Service health check
+GET  /api/patients              — All patients with risk data
+GET  /api/patients/{id}         — Individual patient detail
+```
+
+**Example response:**
+
+```json
+{
+  "success": true,
+  "patients": [
+    {
+      "id": 1,
+      "patient_name": "Marcus Johnson",
+      "risk_level": "HIGH",
+      "medication_adherence": 0.3,
+      "appointments_missed": 4,
+      "crisis_calls_30days": 2,
+      "diagnosis": "Major Depressive Disorder, recurrent"
+    }
+  ],
+  "count": 10,
+  "source": "FastAPI + Railway PostgreSQL"
+}
+```
+
+---
+
+## 📁 Project Structure
+
+```
+MindBridge-Health-AI/
+├── frontend/
+│   └── patient-portal/          # Next.js application
+│       ├── app/
+│       │   ├── page.tsx          # Login page (NextAuth)
+│       │   ├── dashboard/        # Protected patient dashboard
+│       │   └── api/auth/         # NextAuth handler
+│       ├── proxy.ts              # Route protection middleware
+│       └── .env.local            # Local environment variables
+├── backend/
+│   ├── app/
+│   │   └── main.py               # FastAPI application
+│   ├── requirements.txt
+│   ├── Procfile
+│   └── railway.toml              # Railway deployment config
+└── README.md
+```
+
+---
+
+## 🛠️ Local Development
+
+### Prerequisites
+
+- Node.js 18+
+- Python 3.11+
+- PostgreSQL (or Railway account)
+
+### Frontend Setup
+
+```bash
+cd frontend/patient-portal
+npm install
+cp .env.local.example .env.local
+# Add your DATABASE_URL and NEXTAUTH variables
+npm run dev
+```
+
+### Backend Setup
+
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+# Set DATABASE_URL environment variable
+uvicorn app.main:app --reload
+```
+
+### Environment Variables
+
+**Frontend (.env.local):**
+
+```
+DATABASE_URL=postgresql://...
+NEXTAUTH_SECRET=your-secret
+NEXTAUTH_URL=http://localhost:3000
+```
+
+**Backend:**
+
+```
+DATABASE_URL=postgresql://...
+```
+
+---
+
+## 🔒 Security Practices
+
+- All credentials stored in environment variables — never hardcoded
+- Git history cleaned with git-filter-repo after accidental exposure
+- GitGuardian monitoring enabled on repository
+- httpOnly cookies prevent XSS token theft
+- CORS configured for specific origins only
+
+---
+
+## 👨‍💻 Developer
+
+**Fidelis Emmanuel (Tobe)**
+
+- 10 years behavioral health experience
+- Transitioning to Healthcare AI Engineering
+- Building production-grade clinical tools
+
+---
+
+## 📄 License
+
+MIT — Demo data only. No real patient data is stored or displayed.
