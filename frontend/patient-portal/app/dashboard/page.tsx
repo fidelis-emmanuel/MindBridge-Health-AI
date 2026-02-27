@@ -1,13 +1,19 @@
 export const dynamic = 'force-dynamic';
-
-import { Pool } from "pg";
 import Link from "next/link";
 
 async function getPatients() {
-  const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false },
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/patients`,
+    { cache: 'no-store' }
+  );
+  
+  if (!res.ok) {
+    throw new Error('Failed to fetch patients');
+  }
+  
+  const data = await res.json();
+  return data.patients;
+}
   
   const result = await pool.query(`
     SELECT id, patient_name, risk_level, medication_adherence, 
