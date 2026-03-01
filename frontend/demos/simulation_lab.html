@@ -674,6 +674,39 @@
     </div>
 
     <div class="sidebar-section">
+      <!-- DEMO SCRIPT SECTION -->
+      <div class="section-header">🎬 DEMO SCRIPT (4)</div>
+      <button class="scenario-btn" onclick="loadScenario('demo_login')" id="btn-demo_login">
+        <span class="icon">🔐</span>
+        <span class="info">
+          <div class="name">Login Page Demo</div>
+          <div class="tag tag-int">Demo</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('demo_dashboard')" id="btn-demo_dashboard">
+        <span class="icon">📊</span>
+        <span class="info">
+          <div class="name">Dashboard Demo</div>
+          <div class="tag tag-int">Demo</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('demo_api')" id="btn-demo_api">
+        <span class="icon">⚡</span>
+        <span class="info">
+          <div class="name">FastAPI Backend Demo</div>
+          <div class="tag tag-int">Demo</div>
+        </span>
+      </button>
+      <button class="scenario-btn" onclick="loadScenario('demo_architecture')" id="btn-demo_architecture">
+        <span class="icon">🏗️</span>
+        <span class="info">
+          <div class="name">Full Architecture Demo</div>
+          <div class="tag tag-int">Demo</div>
+        </span>
+      </button>
+    </div>
+
+    <div class="sidebar-section">
       <div class="sidebar-title">💡 Concept Check (18)</div>
       <button class="scenario-btn" onclick="loadScenario('docker')" id="btn-docker">
         <span class="icon">🐳</span>
@@ -805,7 +838,7 @@
       <div class="welcome" id="welcome">
         <div style="font-size:48px">🏥</div>
         <h2>Welcome to Simulation Lab</h2>
-        <p>Practice real scenarios you'll face in Healthcare AI Engineer interviews. 61 scenarios covering simulations, interviews, and technical concepts.</p>
+        <p>Practice real scenarios you'll face in Healthcare AI Engineer interviews. 65 scenarios covering simulations, interviews, and technical concepts.</p>
         <div class="welcome-cards">
           <div class="welcome-card">
             <div class="icon">🎭</div>
@@ -821,6 +854,11 @@
             <div class="icon">💡</div>
             <div class="title">Concepts</div>
             <div class="desc">18 deep-dive technical concepts: Docker, PostgreSQL, HIPAA, FHIR, HL7, Pooling</div>
+          </div>
+          <div class="welcome-card">
+            <div class="icon">🎬</div>
+            <div class="title">Demo Scripts</div>
+            <div class="desc">4 hiring manager demo scripts covering login, dashboard, API, and full architecture</div>
           </div>
         </div>
       </div>
@@ -897,7 +935,7 @@
       </div>
       <div class="stat-divider"></div>
       <div class="stat">
-        <div class="stat-value" style="color:var(--accent)">48</div>
+        <div class="stat-value" style="color:var(--accent)">65</div>
         <div class="stat-label">Total Scenarios</div>
       </div>
       <div class="stat-divider"></div>
@@ -3002,6 +3040,108 @@ export const dynamic = 'force-dynamic' + cache: 'no-store' together guarantee:<b
 <strong>POST-INCIDENT:</strong><br>
 Add real-time risk alerts — don't wait for clinicians to refresh the dashboard. WebSocket or Server-Sent Events push HIGH risk changes immediately to all active sessions.<br><br>
 <strong>Interview gold:</strong> "This incident illustrates why healthcare applications need different defaults than consumer apps. Caching improves performance but can directly harm patients when clinical data is involved. Every caching decision in MindBridge is a clinical safety decision first."`
+  },
+
+  demo_login: {
+    type: "interview",
+    title: "Login Page Demo Script",
+    question: "You're on a video call with a hiring manager. You've just navigated to mind-bridge-health-ai.vercel.app. Walk them through the login page.",
+    context: "First impressions matter. The login page sets up every technical talking point that follows. Practice until this feels completely natural.",
+    ideal: `<strong>OPENING LINE:</strong><br>
+"This is MindBridge Health AI — a HIPAA-compliant behavioral health platform I built from scratch over the last 3 weeks."<br><br>
+<strong>AUTHENTICATION TALKING POINTS:</strong><br>
+"The login page uses NextAuth.js with JWT authentication. Sessions expire after exactly 8 hours — that's intentional. It aligns with a standard clinical shift length, satisfying HIPAA's automatic logoff requirement under §164.312(a)(2)(iii)."<br><br>
+"The 256-bit encryption and HIPAA compliance indicators reflect real architectural decisions. All connections use TLS 1.3, session tokens are stored in httpOnly cookies so JavaScript can't access them, and every protected route is blocked at the edge by Next.js middleware before the page component even executes."<br><br>
+<strong>DEMO CREDENTIALS:</strong><br>
+Email: demo@mindbridge.health<br>
+Password: MindBridge2026!<br><br>
+<strong>LIKELY HIRING MANAGER QUESTIONS:</strong><br>
+Q: "What happens if someone tries to access the dashboard without logging in?"<br>
+A: "Next.js middleware intercepts the request at the edge and redirects to login immediately. The dashboard page component never executes for unauthenticated requests."<br><br>
+Q: "Why 8 hours specifically?"<br>
+A: "HIPAA §164.312(a)(2)(iii) requires automatic logoff after a predetermined time. 8 hours aligns with one clinical shift — a case manager who forgets to log out has their session expire automatically at end of shift."<br><br>
+Q: "Is this production-ready authentication?"<br>
+A: "The architecture is production-ready. For a real deployment I'd replace the demo credentials with PostgreSQL user lookup and bcrypt password verification, add MFA for admin roles, and implement login attempt rate limiting."<br><br>
+<strong>TRANSITION TO DASHBOARD:</strong><br>
+"Let me log in and show you the patient dashboard where the clinical data lives."`
+  },
+
+  demo_dashboard: {
+    type: "interview",
+    title: "Dashboard Demo Script",
+    question: "You've just logged in and the dashboard is showing. Walk the hiring manager through what they're seeing.",
+    context: "The dashboard is the centerpiece of the demo. Connect every visual element to a technical decision and a clinical requirement.",
+    ideal: `<strong>OPENING:</strong><br>
+"After authentication, case managers land on the Patient Dashboard. You can see 10 active patients with real-time risk stratification — 4 HIGH risk, 3 MEDIUM, and 3 LOW."<br><br>
+<strong>DATA SOURCE TALKING POINT:</strong><br>
+"This data is live — it's not hardcoded. It's coming from a PostgreSQL database hosted on Railway. Every time this dashboard loads, my Next.js Server Component calls the FastAPI backend which queries PostgreSQL via an asyncpg connection pool."<br><br>
+<strong>WHY SERVER COMPONENTS:</strong><br>
+"Notice there's no request to the FastAPI backend in the browser's Network tab. That's intentional — the fetch happens on Vercel's servers, not in the browser. Patient data never travels through the browser's JavaScript layer. This is a security feature as much as a performance feature."<br><br>
+<strong>CLINICAL DATA WALKTHROUGH:</strong><br>
+"Let me show you what this data means clinically. Take David Wilson — HIGH risk, 25% medication adherence, 5 missed appointments, 3 crisis calls in 30 days, Schizoaffective Disorder bipolar type. In a real clinical setting this patient triggers immediate outreach today.<br><br>
+Compare that to Christopher Lee — LOW risk, 95% medication adherence, zero missed appointments, zero crisis calls. Social Anxiety Disorder well managed. Routine check-in, no urgency.<br><br>
+The AI agent I'm building next week will automate this triage — identifying patients like David Wilson automatically and alerting the right case manager."<br><br>
+<strong>LIKELY HIRING MANAGER QUESTIONS:</strong><br>
+Q: "How often does this data refresh?"<br>
+A: "Every page load fetches fresh data. I use cache: 'no-store' on the fetch call and force-dynamic on the page — clinical data should never be stale. A patient who escalated to HIGH risk since the last cache refresh could be missed."<br><br>
+Q: "How would you handle 500 patients instead of 10?"<br>
+A: "Add pagination to the API — GET /api/patients?page=1&limit=25. Add database indexes on risk_level and clinic_id. The connection pool handles concurrent load already."<br><br>
+<strong>TRANSITION TO API:</strong><br>
+"Let me show you the FastAPI backend directly so you can see the raw data flow."`
+  },
+
+  demo_api: {
+    type: "interview",
+    title: "FastAPI Backend Demo Script",
+    question: "You've navigated to the FastAPI health endpoint and /api/patients. Walk the hiring manager through what they're seeing.",
+    context: "The API demo shows you understand the full stack. Connect the JSON response to the clinical data on the dashboard.",
+    ideal: `<strong>HEALTH ENDPOINT — mindbridge-health-ai-production.up.railway.app/health:</strong><br>
+"This is the health check endpoint. It tells Railway the service is running and the database is connected. Railway hits this endpoint on every deployment — if it returns 200, the deployment succeeds. If it fails, Railway rolls back automatically."<br><br>
+"Notice database: connected. That confirms the asyncpg connection pool successfully established connections to PostgreSQL at startup. I designed this to be non-fatal — if the database is temporarily unavailable, the app still starts and Railway doesn't roll back a good deployment."<br><br>
+<strong>PATIENTS ENDPOINT — /api/patients:</strong><br>
+"This is the raw JSON the dashboard consumes. Notice the source field — FastAPI + Railway PostgreSQL — confirming the complete data chain."<br><br>
+"Three endpoints total: /health for Railway, /api/patients for the dashboard, and /api/patients/{id} for individual patient detail pages."<br><br>
+<strong>FASTAPI CHOICE TALKING POINT:</strong><br>
+"I chose FastAPI over Django or Flask for three reasons. First, it's async-native — behavioral health platforms have concurrent access during shift changes. Django is synchronous by default and would bottleneck. Second, auto-generated OpenAPI docs at /docs — the API is self-documenting. Third, Pydantic validation is built in — patient data has strict requirements."<br><br>
+<strong>ASYNCPG TALKING POINT:</strong><br>
+"The backend uses asyncpg instead of psycopg2. Without asyncpg, every database query blocks the entire thread. With asyncpg, 50 case managers logging in simultaneously get responses in under 100ms. For a clinical tool where delayed access affects patient care — that's a requirement, not a preference."<br><br>
+<strong>LIKELY HIRING MANAGER QUESTIONS:</strong><br>
+Q: "How do you secure this API in production?"<br>
+A: "Add JWT verification middleware — every request must include a valid Bearer token. Rate limiting per user. Request logging for audit trails. HTTPS only — Railway handles TLS termination."<br><br>
+Q: "What would you add next?"<br>
+A: "API versioning at /api/v1/. Pydantic response models for type-safe contracts. An AI agent layer that queries the database intelligently — that's Week 4."`
+  },
+
+  demo_architecture: {
+    type: "interview",
+    title: "Full Architecture Demo Script",
+    question: "The hiring manager asks: 'Can you draw out the architecture and walk me through how everything connects?' Practice your complete architecture explanation.",
+    context: "This is the most important demo moment. Show systems thinking. Connect every layer to a clinical or security requirement.",
+    ideal: `<strong>THE THREE LAYERS:</strong><br>
+"MindBridge has three production layers — all live, all cloud-deployed, no localhost anywhere."<br><br>
+<strong>LAYER 1 — Frontend:</strong><br>
+"Next.js 16 on Vercel's global CDN. NextAuth.js handles authentication with 8-hour JWT sessions stored in httpOnly cookies. Next.js middleware protects clinical routes at the edge — unauthenticated requests never reach page components. Server Components fetch data server-side so credentials and patient data never touch the browser's JavaScript layer."<br><br>
+<strong>LAYER 2 — Backend:</strong><br>
+"FastAPI on Railway. Async by design — asyncpg connection pool handles concurrent case manager access. CORS configured for specific origins only. /health endpoint enables Railway's automatic deployment validation and rollback."<br><br>
+<strong>LAYER 3 — Database:</strong><br>
+"PostgreSQL on Railway. SSL required for all connections — satisfies HIPAA §164.312(e)(2)(ii) encryption in transit. Connection pool eliminates per-request connection overhead."<br><br>
+<strong>COMPLETE REQUEST FLOW:</strong><br>
+"When a case manager opens the dashboard:<br>
+1. Next.js middleware checks JWT cookie at the edge<br>
+2. Valid token — Server Component executes<br>
+3. Server Component calls FastAPI /api/patients<br>
+4. FastAPI acquires warm pool connection<br>
+5. SELECT query runs on PostgreSQL<br>
+6. JSON returned to Server Component<br>
+7. HTML rendered server-side<br>
+8. Delivered to browser via Vercel CDN<br>
+Total time: under 200ms"<br><br>
+<strong>SECURITY STORY:</strong><br>
+"Every layer has a security control. Edge middleware blocks unauthenticated access. httpOnly cookies prevent XSS. Server Components keep credentials server-side. SSL encrypts database connections. Environment variables keep credentials out of code — I learned that the hard way when GitGuardian detected exposed credentials within 24 hours of making the repo public. Rotated the password in 5 minutes, cleaned git history with git-filter-repo, total resolution under 30 minutes."<br><br>
+<strong>WHAT'S NEXT:</strong><br>
+"Week 4 adds an AI agent layer — natural language queries against the database, automated patient risk alerts, clinical documentation generation. The architecture was designed from day one to support AI capabilities on top of this foundation."<br><br>
+<strong>CLOSING LINE:</strong><br>
+"Everything you've seen is live in production right now. The GitHub repo is public — you can see every commit, every architectural decision, the security incident and how I handled it. That's the kind of transparency I bring to every project."`
   }
 };
 
