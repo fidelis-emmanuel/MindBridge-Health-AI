@@ -81,13 +81,27 @@ INSTRUCTIONS:
 - Do NOT use bullet points — flowing paragraphs only
 """
 
-    response = client.messages.create(
-        model=MODEL,
-        max_tokens=1024,
-        system=system,
-        messages=[{"role": "user", "content": user_prompt}],
-    )
+    try:
+        response = client.messages.create(
+            model=MODEL,
+            max_tokens=1024,
+            system=system,
+            messages=[{"role": "user", "content": user_prompt}],
+        )
+    except anthropic.APIStatusError as exc:
+        raise RuntimeError(
+            f"Claude API error {exc.status_code}: {exc.message}"
+        ) from exc
+    except anthropic.APIConnectionError as exc:
+        raise RuntimeError(
+            "Could not reach Claude API — check your network connection."
+        ) from exc
 
+    if not response.content:
+        raise RuntimeError(
+            f"Claude returned an empty response (stop_reason={response.stop_reason!r}). "
+            "Try again or shorten the job posting."
+        )
     letter = response.content[0].text.strip()
 
     # Save to letters/ directory using Python file I/O (not restricted by git hooks)
