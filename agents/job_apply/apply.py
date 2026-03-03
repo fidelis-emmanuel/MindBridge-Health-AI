@@ -15,6 +15,11 @@ import sys
 import click
 from pathlib import Path
 
+# Windows: reconfigure stdout/stderr to UTF-8 so emoji and box-drawing render correctly
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 # Allow running from project root: python agents/job_apply/apply.py
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
