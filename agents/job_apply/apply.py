@@ -2,11 +2,14 @@
 """
 MindBridge Job Apply Agent — CLI entry point.
 
-Usage:
+Usage (run from project root only):
     python agents/job_apply/apply.py add
     python agents/job_apply/apply.py list
     python agents/job_apply/apply.py update <id>
     python agents/job_apply/apply.py stats
+
+Note: On Windows, prefix with PYTHONUTF8=1 for correct emoji/box-drawing rendering.
+    PYTHONUTF8=1 python agents/job_apply/apply.py --help
 """
 import sys
 import click
@@ -41,7 +44,10 @@ def _read_multiline(prompt: str, sentinel: str = ";;") -> str:
     click.echo(f"{prompt} (type {sentinel} on a new line to finish):")
     lines = []
     while True:
-        line = input()
+        try:
+            line = input()
+        except EOFError:
+            break
         if line.strip() == sentinel:
             break
         lines.append(line)
@@ -94,7 +100,7 @@ def add():
             click.echo(letter_text)
             click.echo("─" * 60)
             click.secho("\n✅ Letter saved to agents/job_apply/letters/", fg="green")
-        except RuntimeError as e:
+        except (RuntimeError, OSError) as e:
             click.secho(f"⚠️  Cover letter failed: {e}", fg="yellow")
 
     # Save to DB
