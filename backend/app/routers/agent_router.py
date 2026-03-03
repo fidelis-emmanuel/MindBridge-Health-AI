@@ -2,7 +2,7 @@
 FastAPI router for the MindBridge Database Agent.
 Mounts at /agent in the main FastAPI app.
 """
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel
 import asyncpg
 
@@ -43,7 +43,7 @@ class AgentResponse(BaseModel):
 # ─────────────────────────────────────────────
 # Dependency: get DB pool
 # ─────────────────────────────────────────────
-async def get_pool(request) -> asyncpg.Pool:
+async def get_pool(request: Request) -> asyncpg.Pool:
     """Retrieve the asyncpg pool stored on app state."""
     pool = request.app.state.pool
     if pool is None:
@@ -55,7 +55,7 @@ async def get_pool(request) -> asyncpg.Pool:
 # Endpoints
 # ─────────────────────────────────────────────
 @router.post("/query", response_model=AgentResponse)
-async def agent_query(body: AgentRequest, request=None, pool: asyncpg.Pool = Depends(get_pool)):
+async def agent_query(body: AgentRequest, request: Request, pool: asyncpg.Pool = Depends(get_pool)):
     """
     Send a natural language request to the MindBridge Database Agent.
     The agent will use its 4 tools (check_blocking, query_database,
@@ -87,7 +87,7 @@ async def list_tools():
 
 
 @router.get("/health")
-async def agent_health(request=None, pool: asyncpg.Pool = Depends(get_pool)):
+async def agent_health(request: Request, pool: asyncpg.Pool = Depends(get_pool)):
     """Quick check that agent can reach the database."""
     try:
         async with pool.acquire() as conn:
@@ -99,3 +99,4 @@ async def agent_health(request=None, pool: asyncpg.Pool = Depends(get_pool)):
         }
     except Exception as e:
         raise HTTPException(status_code=503, detail=f"Database unreachable: {e}")
+
