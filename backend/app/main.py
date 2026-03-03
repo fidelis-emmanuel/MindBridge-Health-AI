@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 import asyncpg
 import os
 from dotenv import load_dotenv
+from app.ai.clinical_scribe.router import router as scribe_router
 
 load_dotenv()
 
@@ -21,11 +22,13 @@ async def lifespan(app: FastAPI):
             max_size=10,
             ssl="require"
         )
+        app.state.pool = db_pool
         print("✅ Database pool created")
     except Exception as e:
         print(f"⚠️ Database connection error: {type(e).__name__}: {e}")
         print(f"⚠️ DATABASE_URL starts with: {DATABASE_URL[:30] if DATABASE_URL else 'EMPTY'}")
         db_pool = None
+        app.state.pool = None
     yield
     if db_pool:
         await db_pool.close()
@@ -46,6 +49,8 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["Authorization", "Content-Type"],
 )
+
+app.include_router(scribe_router)
 
 @app.get("/health")
 async def health_check():
