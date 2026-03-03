@@ -5,6 +5,7 @@ import asyncpg
 import os
 from dotenv import load_dotenv
 from app.ai.clinical_scribe.router import router as scribe_router
+from app.routers.agent_router import router as agent_router
 
 load_dotenv()
 
@@ -23,10 +24,10 @@ async def lifespan(app: FastAPI):
             ssl="require"
         )
         app.state.pool = db_pool
-        print("✅ Database pool created")
+        print("[OK] Database pool created")
     except Exception as e:
-        print(f"⚠️ Database connection error: {type(e).__name__}: {e}")
-        print(f"⚠️ DATABASE_URL starts with: {DATABASE_URL[:30] if DATABASE_URL else 'EMPTY'}")
+        print(f"[WARN] Database connection error: {type(e).__name__}: {e}")
+        print(f"[WARN] DATABASE_URL starts with: {DATABASE_URL[:30] if DATABASE_URL else 'EMPTY'}")
         db_pool = None
         app.state.pool = None
     yield
@@ -51,6 +52,7 @@ app.add_middleware(
 )
 
 app.include_router(scribe_router)
+app.include_router(agent_router)
 
 @app.get("/health")
 async def health_check():
