@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS applications (
 """
 
 def _conn() -> sqlite3.Connection:
-    con = sqlite3.connect(DB_PATH)
+    con = sqlite3.connect(DB_PATH, timeout=10)
     con.row_factory = sqlite3.Row
     con.execute(CREATE_SQL)
     con.commit()
@@ -53,9 +53,9 @@ def update_status(app_id: int, status: str, notes: str = "") -> bool:
     with _conn() as con:
         cur = con.execute(
             """UPDATE applications
-               SET status=?, notes=?, applied_at=COALESCE(?, applied_at)
+               SET status=?, notes=COALESCE(?, notes), applied_at=COALESCE(?, applied_at)
                WHERE id=?""",
-            (status, notes or None, applied_at, app_id),
+            (status, notes if notes else None, applied_at, app_id),
         )
         return cur.rowcount > 0
 
