@@ -32,13 +32,13 @@ def score(job_text: str) -> dict:
     tokens = _tokens(job_text)
 
     # Skill hits (+4 each, cap at 45)
-    # Match on full phrase OR any significant token (>=2 chars) within multi-word skills
+    # Match on full phrase OR any significant token within multi-word skills
     def _skill_matches(skill: str) -> bool:
         if skill.lower() in job_text.lower():
             return True
-        words = skill.lower().split()
-        if len(words) > 1:
-            return bool(_tokens(skill) & tokens - {w for w in _tokens(skill) if len(w) < 2})
+        if len(skill.split()) > 1:
+            skill_toks = _tokens(skill)
+            return bool(skill_toks & tokens)
         return False
 
     matched_skills = [s for s in PROFILE.skills if _skill_matches(s)]
@@ -58,9 +58,13 @@ def score(job_text: str) -> dict:
     hc_pts = 10 if len(matched_hc) >= 5 else (5 if len(matched_hc) >= 2 else 0)
 
     # AI / data engineering bonus (+5 if present)
-    ai_terms = {"machine learning", "artificial intelligence", "ai", "llm",
-                "data engineering", "data pipeline", "analytics", "bi", "reporting"}
-    ai_pts = 5 if ai_terms & _tokens(job_text) else 0
+    ai_single = {"ai", "llm", "analytics", "bi", "reporting"}
+    ai_phrases = {"machine learning", "artificial intelligence",
+                  "data engineering", "data pipeline"}
+    ai_pts = 5 if (
+        ai_single & _tokens(job_text)
+        or any(p in job_text.lower() for p in ai_phrases)
+    ) else 0
 
     raw = skill_pts + role_pts + hc_pts + ai_pts
     final = min(raw, 100)
