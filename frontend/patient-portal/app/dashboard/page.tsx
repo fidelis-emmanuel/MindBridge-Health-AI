@@ -2,10 +2,10 @@ export const dynamic = 'force-dynamic';
 import Link from "next/link";
 
 async function getPatients() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/patients`,
-    { cache: 'no-store' }
-  );
+  const base =
+    process.env.NEXT_PUBLIC_API_URL ??
+    "https://mindbridge-health-ai-production.up.railway.app";
+  const res = await fetch(`${base}/api/patients`, { cache: "no-store" });
   
   if (!res.ok) {
     throw new Error('Failed to fetch patients');
@@ -13,16 +13,6 @@ async function getPatients() {
   
   const data = await res.json();
   return data.patients;
-}
-  
-  const result = await pool.query(`
-    SELECT id, patient_name, risk_level, medication_adherence, 
-           appointments_missed, crisis_calls_30days, diagnosis
-    FROM patients ORDER BY id ASC
-  `);
-  
-  await pool.end();
-  return result.rows;
 }
 
 function RiskBadge({ risk }: { risk: string }) {
