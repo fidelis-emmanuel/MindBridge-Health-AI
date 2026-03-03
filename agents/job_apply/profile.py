@@ -3,14 +3,14 @@
 Tobe's professional profile for job matching and cover letter generation.
 Edit this file to update skills, roles, or experience as you grow.
 """
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 @dataclass
 class Profile:
     name: str
     title: str
-    email: str
-    location: str
+    email: str | None
+    location: str | None
     summary: str
     skills: list[str]
     target_roles: list[str]
@@ -22,8 +22,8 @@ class Profile:
 PROFILE = Profile(
     name="Tobe Fidelis Emmanuel",
     title="Healthcare AI Engineer (Transitioning)",
-    email="",
-    location="",
+    email=None,
+    location=None,
     summary=(
         "Healthcare professional transitioning into AI engineering with a background "
         "in behavioral health operations and data/business analysis. Currently building "
@@ -35,7 +35,7 @@ PROFILE = Profile(
     skills=[
         "Python", "FastAPI", "PostgreSQL", "asyncpg", "Next.js", "React",
         "Claude API", "Anthropic SDK", "AI agent architecture", "SQLite",
-        "REST API design", "asyncpg", "psycopg2", "Railway", "Docker",
+        "REST API design", "psycopg2", "Railway", "Docker",
         "EHR systems", "HIPAA compliance", "HL7", "FHIR",
         "healthcare workflows", "behavioral health",
         "data analysis", "business analysis", "SQL", "reporting",
