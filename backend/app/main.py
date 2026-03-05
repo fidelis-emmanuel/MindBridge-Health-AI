@@ -1,6 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
+from typing import Annotated
+from pydantic import BaseModel, Field, field_validator
 import asyncpg
 import os
 from dotenv import load_dotenv
@@ -10,6 +12,38 @@ from app.routers.agent_router import router as agent_router
 load_dotenv()
 
 DATABASE_URL = os.environ.get("DATABASE_URL", "")
+
+VALID_RISK_LEVELS = {"CRITICAL", "HIGH", "MEDIUM", "LOW"}
+
+class PatientCreate(BaseModel):
+    patient_name: str
+    diagnosis: str
+    risk_level: str
+    medication_adherence: float = 1.0
+    appointments_missed: Annotated[int, Field(ge=0)] = 0
+    crisis_calls_30days: Annotated[int, Field(ge=0)] = 0
+
+    @field_validator("patient_name", "diagnosis")
+    @classmethod
+    def not_blank(cls, v: str) -> str:
+        v = v.strip()
+        if not v:
+            raise ValueError("Field must not be blank")
+        return v
+
+    @field_validator("risk_level")
+    @classmethod
+    def validate_risk(cls, v: str) -> str:
+        if v not in VALID_RISK_LEVELS:
+            raise ValueError(f"risk_level must be one of {VALID_RISK_LEVELS}")
+        return v
+
+    @field_validator("medication_adherence")
+    @classmethod
+    def validate_adherence(cls, v: float) -> float:
+        if not (0.0 <= v <= 1.0):
+            raise ValueError("medication_adherence must be between 0.0 and 1.0")
+        return v
 
 db_pool = None
 
@@ -92,6 +126,33 @@ async def get_patient(patient_id: int):
             SELECT * FROM patients WHERE id = $1
         """, patient_id)
     if not row:
-        from fastapi import HTTPException
         raise HTTPException(status_code=404, detail="Patient not found")
+    return {"success": True, "patient": dict(row)}
+
+@app.post("/api/patients", status_code=201)
+async def create_patient(data: PatientCreate):
+    if db_pool is None:
+        raise HTTPException(status_code=503, detail="Database unavailable")
+    async with db_pool.acquire() as conn:
+        try:
+            row = await conn.fetchrow("""
+                INSERT INTO patients (
+                    patient_name, diagnosis, risk_level,
+                    medication_adherence, appointments_missed, crisis_calls_30days
+                )
+                VALUES ($1, $2, $3, $4, $5, $6)
+                RETURNING *
+            """,
+                data.patient_name,
+                data.diagnosis,
+                data.risk_level,
+                data.medication_adherence,
+                data.appointments_missed,
+                data.crisis_calls_30days,
+            )
+        except asyncpg.exceptions.UniqueViolationError:
+            raise HTTPException(
+                status_code=409,
+                detail=f"Patient '{data.patient_name}' already exists"
+            )
     return {"success": True, "patient": dict(row)}

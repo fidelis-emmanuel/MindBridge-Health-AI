@@ -1,7 +1,17 @@
 export const dynamic = 'force-dynamic';
 import Link from "next/link";
 
-async function getPatients() {
+interface Patient {
+  id: number;
+  patient_name: string;
+  diagnosis: string;
+  risk_level: "CRITICAL" | "HIGH" | "MEDIUM" | "LOW";
+  medication_adherence: number;
+  appointments_missed: number;
+  crisis_calls_30days: number;
+}
+
+async function getPatients(): Promise<Patient[]> {
   const base =
     process.env.NEXT_PUBLIC_API_URL ??
     "https://mindbridge-health-ai-production.up.railway.app";
@@ -12,17 +22,19 @@ async function getPatients() {
   }
   
   const data = await res.json();
-  return data.patients;
+  return data.patients ?? [];
 }
 
 function RiskBadge({ risk }: { risk: string }) {
   const styles: Record<string, string> = {
+    CRITICAL: "bg-red-900 text-red-100 border border-red-700",
     HIGH: "bg-red-100 text-red-700 border border-red-200",
     MEDIUM: "bg-yellow-100 text-yellow-700 border border-yellow-200",
     LOW: "bg-green-100 text-green-700 border border-green-200",
   };
+  const badgeClass = styles[risk] ?? "bg-slate-100 text-slate-600 border border-slate-200";
   return (
-    <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${styles[risk]}`}>
+    <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${badgeClass}`}>
       {risk}
     </span>
   );
@@ -31,9 +43,10 @@ function RiskBadge({ risk }: { risk: string }) {
 export default async function DashboardPage() {
   const patients = await getPatients();
 
-  const highRisk = patients.filter((p: any) => p.risk_level === "HIGH").length;
-  const mediumRisk = patients.filter((p: any) => p.risk_level === "MEDIUM").length;
-  const lowRisk = patients.filter((p: any) => p.risk_level === "LOW").length;
+  const criticalRisk = patients.filter((p: Patient) => p.risk_level === "CRITICAL").length;
+  const highRisk = patients.filter((p: Patient) => p.risk_level === "HIGH").length;
+  const mediumRisk = patients.filter((p: Patient) => p.risk_level === "MEDIUM").length;
+  const lowRisk = patients.filter((p: Patient) => p.risk_level === "LOW").length;
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -74,10 +87,14 @@ export default async function DashboardPage() {
         </div>
 
         {/* Stats cards */}
-        <div className="grid grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
           <div className="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
             <p className="text-sm text-slate-500 font-medium">Total Patients</p>
             <p className="text-3xl font-bold text-slate-900 mt-1">{patients.length}</p>
+          </div>
+          <div className="bg-red-50 rounded-xl p-5 shadow-sm border border-red-300">
+            <p className="text-sm text-red-700 font-medium">Critical Risk</p>
+            <p className="text-3xl font-bold text-red-800 mt-1">{criticalRisk}</p>
           </div>
           <div className="bg-white rounded-xl p-5 shadow-sm border border-red-100">
             <p className="text-sm text-red-500 font-medium">High Risk</p>
@@ -97,9 +114,17 @@ export default async function DashboardPage() {
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
           <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
             <h3 className="font-semibold text-slate-900">Active Caseload</h3>
-            <span className="text-xs text-slate-400 bg-slate-100 px-3 py-1 rounded-full">
-              🔒 HIPAA Protected · Encrypted in Transit
-            </span>
+            <div className="flex items-center gap-3">
+              <Link
+                href="/patients/new"
+                className="text-sm bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 rounded-lg font-medium transition-colors"
+              >
+                + Admit New Patient
+              </Link>
+              <span className="text-xs text-slate-400 bg-slate-100 px-3 py-1 rounded-full">
+                🔒 HIPAA Protected · Encrypted in Transit
+              </span>
+            </div>
           </div>
           <table className="w-full">
             <thead className="bg-slate-50 border-b border-slate-200">
@@ -113,7 +138,7 @@ export default async function DashboardPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {patients.map((patient: any) => (
+              {patients.map((patient: Patient) => (
                 <tr key={patient.id} className="hover:bg-slate-50 transition-colors">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
