@@ -59,6 +59,33 @@ async def lifespan(app: FastAPI):
         )
         app.state.pool = db_pool
         print("[OK] Database pool created")
+        async with db_pool.acquire() as conn:
+            # Remove duplicate patient_name rows, keeping the lowest id
+            deleted = await conn.execute("""
+                DELETE FROM patients
+                WHERE id NOT IN (
+                    SELECT MIN(id) FROM patients GROUP BY patient_name
+                )
+            """)
+            if deleted != "DELETE 0":
+                print(f"[MIGRATION] Removed duplicate patients: {deleted}")
+            # Add UNIQUE constraint if it doesn't already exist
+            await conn.execute("""
+                DO $$
+                BEGIN
+                    IF NOT EXISTS (
+                        SELECT 1 FROM pg_constraint
+                        WHERE conname = 'unique_patient_name'
+                          AND conrelid = 'patients'::regclass
+                    ) THEN
+                        ALTER TABLE patients
+                        ADD CONSTRAINT unique_patient_name UNIQUE (patient_name);
+                        RAISE NOTICE 'unique_patient_name constraint added';
+                    END IF;
+                END
+                $$;
+            """)
+            print("[MIGRATION] unique_patient_name constraint ensured")
     except Exception as e:
         print(f"[WARN] Database connection error: {type(e).__name__}: {e}")
         print(f"[WARN] DATABASE_URL starts with: {DATABASE_URL[:30] if DATABASE_URL else 'EMPTY'}")
@@ -153,6 +180,6 @@ async def create_patient(data: PatientCreate):
         except asyncpg.exceptions.UniqueViolationError:
             raise HTTPException(
                 status_code=409,
-                detail=f"Patient '{data.patient_name}' already exists"
+                detail="Patient already exists"
             )
     return {"success": True, "patient": dict(row)}
