@@ -61,6 +61,9 @@ export default async function DashboardPage() {
           </div>
         </div>
         <div className="flex items-center gap-4">
+          <Link href="/scribe" className="text-sm text-slate-300 hover:text-white transition-colors">
+            ClinicalScribe
+          </Link>
           <span className="text-sm text-slate-400">Dr. Demo Clinician</span>
           <Link href="/" className="text-sm bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded-lg transition-colors">
             Sign Out
