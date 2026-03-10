@@ -56,7 +56,10 @@ async def run_scribe(
 
     Returns a dict with all SOAP fields ready for DB insertion.
     """
-    client = anthropic.AsyncAnthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        raise RuntimeError("ANTHROPIC_API_KEY environment variable is not set")
+    client = anthropic.AsyncAnthropic(api_key=api_key)
 
     response = await client.messages.create(
         model=MODEL,

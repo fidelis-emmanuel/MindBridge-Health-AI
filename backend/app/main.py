@@ -86,6 +86,26 @@ async def lifespan(app: FastAPI):
                 $$;
             """)
             print("[MIGRATION] unique_patient_name constraint ensured")
+            # Create soap_notes table if it doesn't exist
+            await conn.execute("""
+                CREATE TABLE IF NOT EXISTS soap_notes (
+                    id              SERIAL PRIMARY KEY,
+                    patient_id      INTEGER NOT NULL REFERENCES patients(id),
+                    provider_name   TEXT NOT NULL,
+                    raw_input       TEXT NOT NULL,
+                    subjective      TEXT,
+                    objective       TEXT,
+                    assessment      TEXT,
+                    plan            TEXT,
+                    icd10_codes     JSONB,
+                    medications     JSONB,
+                    risk_flags      JSONB,
+                    follow_up       TEXT,
+                    encounter_date  DATE NOT NULL DEFAULT CURRENT_DATE,
+                    created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+                )
+            """)
+            print("[MIGRATION] soap_notes table ensured")
     except Exception as e:
         print(f"[WARN] Database connection error: {type(e).__name__}: {e}")
         print(f"[WARN] DATABASE_URL starts with: {DATABASE_URL[:30] if DATABASE_URL else 'EMPTY'}")

@@ -91,6 +91,8 @@ async def generate_soap_note(body: ScribeRequest, request: Request):
             )
         except ValueError as e:
             raise HTTPException(status_code=422, detail=str(e))
+        except RuntimeError as e:
+            raise HTTPException(status_code=500, detail=str(e))
 
         # Insert into soap_notes
         row = await conn.fetchrow(
