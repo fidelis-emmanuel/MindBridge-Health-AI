@@ -8,6 +8,9 @@ import os
 from dotenv import load_dotenv
 from app.ai.clinical_scribe.router import router as scribe_router
 from app.routers.agent_router import router as agent_router
+from app.routers.appointments import router as appointments_router
+from app.fhir.appointment import router as fhir_router
+from app.agents.reminder_agent import start_reminder_scheduler
 
 load_dotenv()
 
@@ -106,6 +109,71 @@ async def lifespan(app: FastAPI):
                 )
             """)
             print("[MIGRATION] soap_notes table ensured")
+            # Ensure btree_gist for the appointments exclusion constraint
+            await conn.execute("CREATE EXTENSION IF NOT EXISTS btree_gist")
+            # Clinicians table
+            await conn.execute("""
+                CREATE TABLE IF NOT EXISTS clinicians (
+                    id             UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
+                    name           VARCHAR(255) NOT NULL,
+                    email          VARCHAR(255) UNIQUE,
+                    specialty      VARCHAR(100),
+                    license_number VARCHAR(100),
+                    is_active      BOOLEAN      NOT NULL DEFAULT TRUE,
+                    created_at     TIMESTAMPTZ  NOT NULL DEFAULT NOW()
+                )
+            """)
+            # Appointment enums (idempotent)
+            await conn.execute("""
+                DO $$ BEGIN
+                    CREATE TYPE appointment_type AS ENUM
+                        ('individual','group','telehealth','intake','crisis');
+                EXCEPTION WHEN duplicate_object THEN NULL; END $$
+            """)
+            await conn.execute("""
+                DO $$ BEGIN
+                    CREATE TYPE appointment_status AS ENUM
+                        ('scheduled','confirmed','completed','cancelled','no_show');
+                EXCEPTION WHEN duplicate_object THEN NULL; END $$
+            """)
+            # Appointments table
+            await conn.execute("""
+                CREATE TABLE IF NOT EXISTS appointments (
+                    id                  SERIAL             PRIMARY KEY,
+                    patient_id          INTEGER            NOT NULL
+                                            REFERENCES patients(id) ON DELETE CASCADE,
+                    clinician_id        UUID               NOT NULL
+                                            REFERENCES clinicians(id),
+                    appointment_type    appointment_type   NOT NULL DEFAULT 'individual',
+                    status              appointment_status NOT NULL DEFAULT 'scheduled',
+                    scheduled_at        TIMESTAMPTZ        NOT NULL,
+                    duration_minutes    INTEGER            NOT NULL DEFAULT 50
+                                            CHECK (duration_minutes BETWEEN 15 AND 240),
+                    notes               TEXT,
+                    location            TEXT,
+                    reminder_24h_sent   BOOLEAN            NOT NULL DEFAULT FALSE,
+                    reminder_1h_sent    BOOLEAN            NOT NULL DEFAULT FALSE,
+                    cancelled_at        TIMESTAMPTZ,
+                    cancellation_reason TEXT,
+                    created_at          TIMESTAMPTZ        NOT NULL DEFAULT NOW(),
+                    updated_at          TIMESTAMPTZ        NOT NULL DEFAULT NOW()
+                )
+            """)
+            await conn.execute("""
+                CREATE INDEX IF NOT EXISTS idx_appointments_patient_id
+                    ON appointments (patient_id)
+            """)
+            await conn.execute("""
+                CREATE INDEX IF NOT EXISTS idx_appointments_clinician_id
+                    ON appointments (clinician_id)
+            """)
+            await conn.execute("""
+                CREATE INDEX IF NOT EXISTS idx_appointments_scheduled_at
+                    ON appointments (scheduled_at)
+            """)
+            print("[MIGRATION] appointments + clinicians tables ensured")
+            start_reminder_scheduler(db_pool)
+            print("[OK] Reminder scheduler started")
     except Exception as e:
         print(f"[WARN] Database connection error: {type(e).__name__}: {e}")
         print(f"[WARN] DATABASE_URL starts with: {DATABASE_URL[:30] if DATABASE_URL else 'EMPTY'}")
@@ -134,6 +202,8 @@ app.add_middleware(
 
 app.include_router(scribe_router)
 app.include_router(agent_router)
+app.include_router(appointments_router, prefix="/appointments", tags=["Scheduling"])
+app.include_router(fhir_router, prefix="/fhir", tags=["FHIR"])
 
 @app.get("/health")
 async def health_check():

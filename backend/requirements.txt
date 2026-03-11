@@ -7,3 +7,5 @@ python-dotenv
 pytest
 pytest-asyncio
 httpx
+apscheduler>=3.10.0
+resend>=0.7.0
